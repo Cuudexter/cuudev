@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>About Cuudex</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="about.css">
+</head>
+
+<!-- IMPORTANT: do NOT include .index-page -->
+<body>
+
+<header class="channel-header">
+    <h1>About Cuudex</h1>
+    <!-- This will inherit the subpage button style -->
+    <div class="header-actions">
+        <a href="index.html" class="nav-slant-btn">
+            <span>Return to Cuudex</span>
+        </a>
+    </div>
+
+</header>
+
+<main class="about-layout">
+
+    <!-- LEFT SIDE TEXT -->
+    <section class="about-left">
+        <h2>Welcome, Cuurious visitor!</h2>
+        <p>
+            Cuudex is intended as a stream browsing site for Pupals looking for a Féileacán Cú stream or collab to 
+            (re)watch or recommend. Cuu has had no hand in it, it's simply a passion project born from a wish to tag 
+            streams to filter them more easily, as well as my own frustration at the lack of various Youtube functionlity. 
+            It might also be a not-at-all delayed birthday gift for someold guy and his ancient body roomie... 
+            Surely all of November still counts, right..?
+        </p>
+        <p>
+            The stream tags are subjective opinion, but I try to make them generally acceptable, and will consider 
+            suggestions carefully! I try to keep them pretty high-level, so that while most (*cough* all) streams make me 
+            laugh, mainly the ones centred around humerous games are tagged "Funny". That's probably my worst choice for a 
+            tag, actually... Regarding submitted Tag Suggestions, I have to review them manually due to technical 
+            limitations (like the lack of an actual server). I'm sorry if your suggestion doesn't come through, 
+            please bear with me, I'm <i>~juuust a wan~</i>
+        </p>
+        <p>
+            Tragically, graphic design is not my passion. And I'm not actually that good at making websites, but here we are.
+        </p>
+        <p>
+            Feel free to reach out to me on Discord, username <b>Cuudexter</b>, especially if there's a collab stream I've missed after a few days, or if there's something weird about the tags!
+        </p>
+        <p>
+            Have a wonderful day, everywan.               
+        </p>
+</section>
+
+    <!-- RIGHT SIDE CHANGELOG -->
+    <section class="about-right">
+        <div id="changelog-box" class="changelog"></div>
+    </section>
+</main>
+<!-- Markdown parser -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(function() {
+    const box = document.getElementById("changelog-box");
+
+    fetch("CHANGELOG.md")
+        .then(r => r.ok ? r.text() : "")
+        .then(txt => {
+            if (!txt) {
+                box.textContent = "";
+                return;
+            }
+            // Convert markdown → HTML
+            box.innerHTML = marked.parse(txt);
+        })
+        .catch(() => {
+            box.textContent = ""; // stay silent
+        });
+})();
+</script>
+</body>
+</html>

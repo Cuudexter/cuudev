@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Suggest a Tag - Cuudex</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="suggest.css" />
+</head>
+<body>
+
+  <!-- Navigation back to main page -->
+  <header class="top-header suggest-header">
+    <h1>Suggest a Tag</h1>
+
+    <!-- Tag input -->
+    <label for="tagNameInput" class="visually-hidden"></label>
+    <input id="tagNameInput" type="text" placeholder="Enter new tag name..." required />
+
+    <nav class="header-actions">
+      <a href="index.html" class="nav-slant-btn"><span>Return to Cuudex</span></a>
+    </nav>
+  </header>
+
+  <!-- Tag info banner (hidden by default) -->
+  <div id="tagBanner" class="hidden" aria-live="polite">
+    <span id="tagBannerText"></span>
+    <button id="changeTagBtn">Change tag</button>
+  </div>
+
+  <main class="suggest-page">
+    <p>
+      Thank you for your input — these filters help cater Cuu to others! 
+      If you would like, you can be credited for your tag suggestion.
+      Your suggestion will be manually screened to prevent trolling. 
+      Please double-check your tag spelling before submitting.
+
+      New tag suggestions must apply to at least 2 streams. Untagged streams will count as a No. 
+      Submit at the bottom of the page.
+    </p>
+
+    <!-- Search streams -->
+    <div class="search-container">
+      <input id="searchStreams" type="text" placeholder="Search streams by title or date..." />
+    </div>
+
+    <!-- Streams list -->
+    <div id="video-grid"></div>
+
+    <!-- Submit button -->
+    <button id="submitTag" disabled>Submit Tag</button>
+  </main>
+
+  <!-- Submit Modal -->
+  <div id="submitModal" class="hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <h2>Optional submission info</h2>
+
+      <label for="modalMessage">Comment (max 250 characters)</label>
+      <textarea id="modalMessage" maxlength="250" placeholder="Your comment..."></textarea>
+
+      <label for="modalDiscord">Discord username (for tag or comment questions!)</label>
+      <input type="text" id="modalDiscord" placeholder="Discord username" maxlength="25">
+
+      <div class="credit-container">
+        <input type="checkbox" id="modalCredit">
+        <label for="modalCredit">Credit me if my tag is used</label>
+      </div>
+
+      <label for="modalCreditName" id="modalCreditNameLabel" style="display:none;">
+        Credit Name
+        <input type="text" id="modalCreditName" placeholder="Your name of choice" maxlength="25">
+      </label>
+
+      <div class="modal-buttons">
+        <button id="modalCancel" class="red-btn">Cancel</button>
+        <button id="modalSubmit" class="green-btn">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK FIRST -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- Initialize EmailJS BEFORE loading your scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("Initializing EmailJS...");
+      emailjs.init("B9sxlT369XvaI9NAp");
+      console.log("EmailJS ready:", typeof emailjs);
+    });
+  </script>
+
+  <script src="script.js" defer></script>
+  <script src="suggest.js" defer></script>
+
+</body>
+</html>

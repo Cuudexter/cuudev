@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collabs</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="collabs.css">
+</head>
+
+<body class="collab-page">
+
+<header class="top-header">
+  <h1>Féileacán Cú & Co.</h1>
+<div class="header-actions">
+  <a class="nav-slant-btn" href="index.html">
+    <span>Return to Cuudex</span>
+  </a>
+</div>
+
+</header>
+
+<!-- Filters -->
+<section class="filter-bar">
+
+  <div class="collab-controls">
+
+      <!-- Search -->
+      <input type="text" id="searchInput" placeholder="Search streams, channels or dates...">
+
+
+<!-- Friend Count Slider -->
+<div id="friendSliderContainer" class="range-control">
+  <div class="duration-top">
+    <span class="edge-label" id="friendMinLabel">1</span>
+    <span class="duration-headline">Friend Count</span>
+    <span class="edge-label" id="friendMaxLabel">10+</span>
+  </div>
+
+  <div class="slider-wrap">
+    <div class="range-track"></div>
+    <div class="range-fill" id="friendRangeFill"></div>
+    <input type="range" id="friendMin" min="1" max="10" step="1" value="1">
+    <input type="range" id="friendMax" min="1" max="10" step="1" value="10">
+  </div>
+</div>
+
+
+      <!-- Tags -->
+      <div class="collab-tag-row">
+        <div id="tag-filters" class="tag-container"></div>
+      </div>
+
+      <!-- Duration Slider -->
+      <div id="durationSliderContainer">
+        <div class="duration-top">
+          <span class="edge-label" id="durationMinLabel">0</span>
+          <span class="duration-headline">Duration</span>
+          <span class="edge-label" id="durationMaxLabel">999</span>
+        </div>
+
+        <div class="slider-wrap">
+          <div class="range-track"></div>
+          <div class="range-fill" id="rangeFill"></div>
+          <input type="range" id="durationMin" min="0" max="999" step="1" value="0">
+          <input type="range" id="durationMax" min="0" max="999" step="1" value="999">
+        </div>
+      </div>
+
+      <!-- Sorting (move it inside) -->
+      <button id="sortToggle" class="sort-toggle-btn">Newest First ▾</button>
+
+
+
+<main class="page-container">
+
+
+
+  </div>
+
+</section>
+
+
+  </section>
+
+  <!-- Count -->
+  <p id="streamCount" class="stream-count"></p>
+
+  <!-- Video Grid -->
+  <section id="video-grid" class="video-grid"></section>
+
+</main>
+
+<!-- ===== Collabs CSV ===== -->
+<script id="collabs" type="text/csv">
+stream_link,friend_count,Project
+bBRX6SUpbe4,1,,
+uP8ayUE5_dg,2,,
+5M3XNkGke24,1,1,
+QDi3mYd8KGY,4,1,
+</script>
+<script src="script.js"></script>
+<script src="collabs.js"></script>
+</body>
+</html>

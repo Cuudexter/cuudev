@@ -1,0 +1,75 @@
+/* Two-column card layout */
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    width: 100%;
+    flex: 1;
+}
+
+/* Left text section */
+.about-left {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 4px;
+    line-height: 1.6;
+}
+
+/* Right changelog section */
+.about-right {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollable changelog viewer */
+#changelog-box {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    background: #111;
+    border-radius: 4px;
+    max-height: 70vh;
+    overflow-y: auto;
+    font-family: Consolas, monospace;
+    color: var(--muted);
+    white-space: pre-wrap;
+}
+
+/* Responsive stacking on small screens */
+@media (max-width: 800px) {
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Changelog markdown spacing */
+#changelog-box h1,
+#changelog-box h2,
+#changelog-box h3 {
+    margin-top: 0;     
+    margin-bottom: 0; 
+    line-height: 1.2;
+}
+
+/* Largest heading (#) */
+#changelog-box h1 {
+    font-size: 1.5rem; 
+}
+
+/* Medium heading (##) */
+#changelog-box h2 {
+    font-size: 1.2rem;
+}
+
+/* Smallest heading (###) */
+#changelog-box h3 {
+    font-size: 1.05rem;
+}
+
+#changelog-box ul {
+    margin-top: -16px;
+    margin-bottom: 0;
+}
