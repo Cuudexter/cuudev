@@ -83,8 +83,7 @@ window.fetchAllStreams = async function() {
           `https://www.googleapis.com/youtube/v3/playlistItems?` +
           `part=contentDetails&playlistId=${playlistId}&maxResults=1&key=${API_KEY}`;
 
-      const latestRes = await fetch(latestUrl);
-      const latestJson = await latestRes.json();
+      const latestJson = await ytFetch(latestUrl);
 
       const liveLatestId = latestJson?.items?.[0]?.contentDetails?.videoId;
 
@@ -200,8 +199,7 @@ function escapeHtml(str) {
 // Fetch channel snippet and uploads playlist ID
 async function getChannelDetails() {
   const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
-  const res = await ytFetch(url);
-  const data = await res.json();
+  const data = await ytFetch(url);
   if (!data.items?.length) return null;
 
   const channel = data.items[0].snippet;
@@ -234,8 +232,7 @@ async function getVideosFromPlaylist(playlistId) {
       key: API_KEY,
     }).toString();
 
-    const res = await ytFetch(url);
-    const data = await res.json();
+    const data = await ytFetch(url);
     if (!data.items) break;
 
     videos.push(...data.items);

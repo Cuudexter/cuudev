@@ -213,8 +213,7 @@ async function fetchVideoData(ids) {
     const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${c.join(
       ","
     )}&key=${API_KEY}`;
-    const res = await ytFetch(url);
-    const data = await res.json();
+    const data = await ytFetch(url);
     results.push(...(data.items || []));
     await new Promise(r => setTimeout(r, 150));
   }
