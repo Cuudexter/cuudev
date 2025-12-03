@@ -18,7 +18,6 @@ let API_KEY = API_KEYS[API_KEY_INDEX]; // global active key
 async function ytFetch(url) {
   for (let i = 0; i < API_KEYS.length; i++) {
     API_KEY = API_KEYS[API_KEY_INDEX]; // ensure global is always correct
-    const tryUrl = url.replace("{{KEY}}", API_KEY);
 
     try {
       const res = await fetch(tryUrl);
@@ -42,7 +41,7 @@ async function ytFetch(url) {
       throw new Error("fetch-failed");
 
     } catch (err) {
-      console.warn(`API key ${{KEY}} failed (${err.message}). Rotating…`);
+      console.warn(`API key ${API_KEY} failed (${err.message}). Rotating…`);
 
       // Move to next key
       API_KEY_INDEX = (API_KEY_INDEX + 1) % API_KEYS.length;
@@ -82,7 +81,7 @@ window.fetchAllStreams = async function() {
       // --- Fetch JUST the first upload (super low quota) ---
       const latestUrl =
           `https://www.googleapis.com/youtube/v3/playlistItems?` +
-          `part=contentDetails&playlistId=${playlistId}&maxResults=1&key=${{KEY}}`;
+          `part=contentDetails&playlistId=${playlistId}&maxResults=1&key=${API_KEY}`;
 
       const latestRes = await fetch(latestUrl);
       const latestJson = await latestRes.json();
@@ -200,7 +199,7 @@ function escapeHtml(str) {
 
 // Fetch channel snippet and uploads playlist ID
 async function getChannelDetails() {
-  const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&id=${CHANNEL_ID}&key=${{KEY}}`;
+  const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
   const res = await ytFetch(url);
   const data = await res.json();
   if (!data.items?.length) return null;
@@ -250,7 +249,7 @@ async function getVideosFromPlaylist(playlistId) {
 
   for (let i = 0; i < videoIds.length; i += 50) {
     const chunk = videoIds.slice(i, i + 50).join(",");
-    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,snippet&id=${chunk}&key=${{KEY}}`;
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,snippet&id=${chunk}&key=${API_KEY}`;
     const detailsRes = await fetch(detailsUrl);
     const detailsData = await detailsRes.json();
     details.push(...(detailsData.items || []));
