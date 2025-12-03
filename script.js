@@ -4,9 +4,10 @@ const TWITTER_USERNAME = "FeileacanCu";
 
 // ==== UTILITIES ====
 
+  //"AIzaSyD4P5R5ESGIeMbBsWFC37OBM6t_MKMJXQA",
+
 // ==== MULTI-KEY API ROTATION ====
 const API_KEYS = [
-  //"AIzaSyD4P5R5ESGIeMbBsWFC37OBM6t_MKMJXQA",
   "AIzaSyDpEVMya4rDw9-9_xYDukQ4PU6O9L4cSyM",
   "AIzaSyAM6m4JaArIczVC355uyQcLcnOJqmBYq80"
 ];
@@ -20,7 +21,7 @@ async function ytFetch(url) {
     API_KEY = API_KEYS[API_KEY_INDEX];
 
     // FIX: the missing tryUrl
-    const tryUrl = url.replace(/key=[^&]+/, "key=" + API_KEY);
+    const tryUrl = String(url).replace(/key=[^&]+/, "key=" + API_KEY);
 
     try {
       const res = await fetch(tryUrl);
