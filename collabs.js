@@ -54,7 +54,7 @@ function loadCollabCSV() {
 }
 
 async function loadExtraCSV(url) {
-  const res = await fetch(url);
+  const res = await ytFetch(url);
   const text = await res.text();
 
   const lines = text.trim().split("\n").filter(x => x.trim());
@@ -212,8 +212,8 @@ async function fetchVideoData(ids) {
   for (const c of chunks) {
     const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${c.join(
       ","
-    )}&key=${API_KEY}`;
-    const res = await fetch(url);
+    )}&key=${{KEY}}`;
+    const res = await ytFetch(url);
     const data = await res.json();
     results.push(...(data.items || []));
     await new Promise(r => setTimeout(r, 150));

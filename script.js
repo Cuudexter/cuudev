@@ -1,9 +1,57 @@
 // ==== CONFIG ====
-const API_KEY = "AIzaSyD4P5R5ESGIeMbBsWFC37OBM6t_MKMJXQA";
 const CHANNEL_ID = "UCwkVDkOudIxhYMG61Jv8Tww";
 const TWITTER_USERNAME = "FeileacanCu";
 
 // ==== UTILITIES ====
+
+// ==== MULTI-KEY API ROTATION ====
+const API_KEYS = [
+  //"AIzaSyD4P5R5ESGIeMbBsWFC37OBM6t_MKMJXQA",
+  "AIzaSyDpEVMya4rDw9-9_xYDukQ4PU6O9L4cSyM",
+  "AIzaSyAM6m4JaArIczVC355uyQcLcnOJqmBYq80"
+];
+
+let API_KEY_INDEX = 0;
+let API_KEY = API_KEYS[API_KEY_INDEX]; // global active key
+
+// Try the current key. If it fails, rotate and try again.
+async function ytFetch(url) {
+  for (let i = 0; i < API_KEYS.length; i++) {
+    API_KEY = API_KEYS[API_KEY_INDEX]; // ensure global is always correct
+    const tryUrl = url.replace("{{KEY}}", API_KEY);
+
+    try {
+      const res = await fetch(tryUrl);
+
+      // Success → response 200 and no quota errors
+      if (res.ok) {
+        const json = await res.json();
+
+        // YouTube sometimes returns a 200 with an error field
+        if (json.error && json.error.errors) {
+          const reason = json.error.errors[0].reason;
+          if (reason === "quotaExceeded" || reason === "dailyLimitExceeded") {
+            throw new Error("quota");
+          }
+        }
+
+        return json; // ALL GOOD 🎉
+      }
+
+      // HTTP not OK
+      throw new Error("fetch-failed");
+
+    } catch (err) {
+      console.warn(`API key ${{KEY}} failed (${err.message}). Rotating…`);
+
+      // Move to next key
+      API_KEY_INDEX = (API_KEY_INDEX + 1) % API_KEYS.length;
+      API_KEY = API_KEYS[API_KEY_INDEX];
+    }
+  }
+
+  throw new Error("All API keys exhausted");
+}
 
 // ==== PAGE TYPE DETECTION ====
 if (document.body.classList.contains("collab-page")) {
@@ -34,7 +82,7 @@ window.fetchAllStreams = async function() {
       // --- Fetch JUST the first upload (super low quota) ---
       const latestUrl =
           `https://www.googleapis.com/youtube/v3/playlistItems?` +
-          `part=contentDetails&playlistId=${playlistId}&maxResults=1&key=${API_KEY}`;
+          `part=contentDetails&playlistId=${playlistId}&maxResults=1&key=${{KEY}}`;
 
       const latestRes = await fetch(latestUrl);
       const latestJson = await latestRes.json();
@@ -152,8 +200,8 @@ function escapeHtml(str) {
 
 // Fetch channel snippet and uploads playlist ID
 async function getChannelDetails() {
-  const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
-  const res = await fetch(url);
+  const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&id=${CHANNEL_ID}&key=${{KEY}}`;
+  const res = await ytFetch(url);
   const data = await res.json();
   if (!data.items?.length) return null;
 
@@ -187,7 +235,7 @@ async function getVideosFromPlaylist(playlistId) {
       key: API_KEY,
     }).toString();
 
-    const res = await fetch(url);
+    const res = await ytFetch(url);
     const data = await res.json();
     if (!data.items) break;
 
@@ -202,7 +250,7 @@ async function getVideosFromPlaylist(playlistId) {
 
   for (let i = 0; i < videoIds.length; i += 50) {
     const chunk = videoIds.slice(i, i + 50).join(",");
-    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,snippet&id=${chunk}&key=${API_KEY}`;
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,snippet&id=${chunk}&key=${{KEY}}`;
     const detailsRes = await fetch(detailsUrl);
     const detailsData = await detailsRes.json();
     details.push(...(detailsData.items || []));
