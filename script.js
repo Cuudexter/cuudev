@@ -23,35 +23,36 @@ window.fetchAllStreams = async function() {
         return [];
     }
 
-    // --- Read existing cache ---
-    const cachedStreams = JSON.parse(localStorage.getItem("allStreams") || "[]");
-    const cachedCount = Number(localStorage.getItem("allStreams_count") || 0);
+  // --- Read cache ---
+  const cachedStreams = JSON.parse(localStorage.getItem("allStreams") || "[]");
+  const cachedLatestId = cachedStreams[0]?.id || null;
 
-    // If we have cached streams, validate them using the very cheap itemCount call
-    if (cachedStreams.length > 0) {
-        const playlistId = await getChannelDetails();
-        if (!playlistId) return [];
+  if (cachedStreams.length > 0) {
+      const playlistId = await getChannelDetails();
+      if (!playlistId) return [];
 
-        // --- Ultra low-quota freshness check ---
-        const countUrl = `https://www.googleapis.com/youtube/v3/playlists?part=contentDetails&id=${playlistId}&key=${API_KEY}`;
-        const countRes = await fetch(countUrl);
-        const countData = await countRes.json();
+      // --- Fetch JUST the first upload (super low quota) ---
+      const latestUrl =
+          `https://www.googleapis.com/youtube/v3/playlistItems?` +
+          `part=contentDetails&playlistId=${playlistId}&maxResults=1&key=${API_KEY}`;
 
-        const liveCount = countData?.items?.[0]?.contentDetails?.itemCount || 0;
+      const latestRes = await fetch(latestUrl);
+      const latestJson = await latestRes.json();
 
-        console.log("Cached count:", cachedCount, "Live count:", liveCount);
+      const liveLatestId = latestJson?.items?.[0]?.contentDetails?.videoId;
 
-        if (liveCount === cachedCount) {
-            // Cache is still fresh
-            console.log("✔ Using cached streams");
-            window.allStreams = cachedStreams;
-            return cachedStreams;
-        }
+      console.log("Cached latest stream:", cachedLatestId);
+      console.log("Live latest upload:", liveLatestId);
 
-        console.log("⚠ Cache outdated — refreshing stream list…");
-    } else {
-        console.log("No cached streams — fetching fresh.");
-    }
+      if (cachedLatestId === liveLatestId) {
+          console.log("✔ Cache is fresh — using cached streams");
+          window.allStreams = cachedStreams;
+          return cachedStreams;
+      }
+
+      console.log("⚠ New upload detected — refreshing stream list…");
+  }
+
 
     // --- Fetch full data  ---
     try {
