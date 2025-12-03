@@ -1,10 +1,8 @@
 // ==== suggest.js ====
 
 document.addEventListener("DOMContentLoaded", initSuggest);
-console.log("In suggest.js, emailjs is:", typeof emailjs);
 
 async function initSuggest() {
-  console.log("Suggest Tag page initializing...");
 
   // Core elements
   const input = document.getElementById("tagNameInput");
@@ -34,7 +32,6 @@ async function initSuggest() {
     existingTags = header.slice(1, -2); // skip stream_link and last 2 columns (zatsu_start, stream_title)
     metadataLoaded = true;
 
-    console.log("Loaded existing tags:", existingTags);
   } catch (err) {
     console.error("Could not load metadata.csv — submission disabled", err);
     metadataLoaded = false;
@@ -50,7 +47,6 @@ async function initSuggest() {
 
 // --- Fetch or reuse main-page streams ---
 let videos = await fetchAllStreams();
-console.log(videos)
 
 // Ensure cached streams have formattedDate (like main page)
 videos = videos.map(s => {
@@ -62,7 +58,7 @@ videos = videos.map(s => {
   return s;
 });
 
-window.videos = videos; // expose globally if needed
+window.videos = videos;
 
 
   const yesSelections = new Set();
@@ -126,7 +122,6 @@ if (searchBox) {
   });
 }
 
-
   // --- Render streams using main page style ---
   renderStreams(videos, list, yesSelections, noSelections);
 
@@ -149,7 +144,6 @@ if (searchBox) {
   modalCancel.addEventListener("click", () => {
     modal.classList.add("hidden");
   });
-
 
   // --- Submit handler ---
 submit.addEventListener("click", () => {
