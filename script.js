@@ -17,33 +17,32 @@ let API_KEY = API_KEYS[API_KEY_INDEX]; // global active key
 // Try the current key. If it fails, rotate and try again.
 async function ytFetch(url) {
   for (let i = 0; i < API_KEYS.length; i++) {
-    API_KEY = API_KEYS[API_KEY_INDEX]; // ensure global is always correct
+    API_KEY = API_KEYS[API_KEY_INDEX];
+
+    // FIX: the missing tryUrl
+    const tryUrl = url.replace(/key=[^&]+/, "key=" + API_KEY);
 
     try {
       const res = await fetch(tryUrl);
 
-      // Success → response 200 and no quota errors
       if (res.ok) {
         const json = await res.json();
 
-        // YouTube sometimes returns a 200 with an error field
-        if (json.error && json.error.errors) {
+        if (json.error?.errors?.[0]?.reason) {
           const reason = json.error.errors[0].reason;
           if (reason === "quotaExceeded" || reason === "dailyLimitExceeded") {
             throw new Error("quota");
           }
         }
 
-        return json; // ALL GOOD 🎉
+        return json; // success
       }
 
-      // HTTP not OK
       throw new Error("fetch-failed");
 
     } catch (err) {
       console.warn(`API key ${API_KEY} failed (${err.message}). Rotating…`);
 
-      // Move to next key
       API_KEY_INDEX = (API_KEY_INDEX + 1) % API_KEYS.length;
       API_KEY = API_KEYS[API_KEY_INDEX];
     }
@@ -51,6 +50,7 @@ async function ytFetch(url) {
 
   throw new Error("All API keys exhausted");
 }
+
 
 // ==== PAGE TYPE DETECTION ====
 if (document.body.classList.contains("collab-page")) {
