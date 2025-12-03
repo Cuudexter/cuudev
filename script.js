@@ -14,59 +14,84 @@ if (document.body.classList.contains("collab-page")) {
 }
 
 // ==== CONDITIONAL GLOBAL STREAM DATA ====
-window.allStreams = []; // always defined, but only populated for main/suggest pages
+// Uses smart caching with playlist itemCount check
+window.allStreams = [];
+
 window.fetchAllStreams = async function() {
-  // Try cached streams first
-  const cached = localStorage.getItem("allStreams");
-  if (cached) {
-      console.log("Loaded cached streams:", JSON.parse(cached));
-      return JSON.parse(cached);
-  }
-  console.log("No cached streams found, fetching fresh data...");
+    if (window.IS_COLLAB_PAGE) {
+        console.log("Collab page detected — skipping fetch");
+        return [];
+    }
 
+    // --- Read existing cache ---
+    const cachedStreams = JSON.parse(localStorage.getItem("allStreams") || "[]");
+    const cachedCount = Number(localStorage.getItem("allStreams_count") || 0);
 
-  if (window.IS_COLLAB_PAGE) {
-    console.log("[fetchAllStreams] Collab page detected — skipping video fetch");
-    return [];
-  }
+    // If we have cached streams, validate them using the very cheap itemCount call
+    if (cachedStreams.length > 0) {
+        const playlistId = await getChannelDetails();
+        if (!playlistId) return [];
 
-  try {
-    const playlistId = await getChannelDetails();
-    if (!playlistId) return [];
+        // --- Ultra low-quota freshness check ---
+        const countUrl = `https://www.googleapis.com/youtube/v3/playlists?part=contentDetails&id=${playlistId}&key=${API_KEY}`;
+        const countRes = await fetch(countUrl);
+        const countData = await countRes.json();
 
-    const tagMap = loadStreamTags();
-    const fetched = await getVideosFromPlaylist(playlistId);
+        const liveCount = countData?.items?.[0]?.contentDetails?.itemCount || 0;
 
-    const streams = fetched.map(s => {
-      const tags = tagMap[s.id] || {};
-      const zatsuStart = tags.zatsuStartMinutes || 0;
-      const total = s.durationMinutes || 0;
+        console.log("Cached count:", cachedCount, "Live count:", liveCount);
 
-      const d = new Date(s.date);
-      const options = { month: 'long', day: 'numeric' };
-      const formattedDate = d.toLocaleDateString('en-GB', options) + " '" + String(d.getFullYear()).slice(-2);
+        if (liveCount === cachedCount) {
+            // Cache is still fresh
+            console.log("✔ Using cached streams");
+            window.allStreams = cachedStreams;
+            return cachedStreams;
+        }
 
-      return {
-        ...s,
-        tags,
-        zatsuStartMinutes: zatsuStart,
-        zatsuDuration: Math.max(0, total - zatsuStart),
-        gameDuration: Math.max(0, zatsuStart),
-        formattedDate,
-      };
-    });
+        console.log("⚠ Cache outdated — refreshing stream list…");
+    } else {
+        console.log("No cached streams — fetching fresh.");
+    }
 
-    window.allStreams = streams;
+    // --- Fetch full data  ---
+    try {
+        const playlistId = await getChannelDetails();
+        if (!playlistId) return [];
 
-    // Storing streams for later use
-    localStorage.setItem("allStreams", JSON.stringify(window.allStreams));
-    console.log("Saved streams to cache");
+        const tagMap = loadStreamTags();
+        const fetched = await getVideosFromPlaylist(playlistId);
 
-    return streams;
-  } catch (err) {
-    console.error("[fetchAllStreams] Error fetching videos:", err);
-    return [];
-  }
+        const streams = fetched.map(s => {
+            const tags = tagMap[s.id] || {};
+            const zatsuStart = tags.zatsuStartMinutes || 0;
+            const total = s.durationMinutes || 0;
+
+            const d = new Date(s.date);
+            const options = { month: "long", day: "numeric" };
+            const formattedDate = d.toLocaleDateString("en-GB", options) + " '" + String(d.getFullYear()).slice(-2);
+
+            return {
+                ...s,
+                tags,
+                zatsuStartMinutes: zatsuStart,
+                zatsuDuration: Math.max(0, total - zatsuStart),
+                gameDuration: Math.max(0, zatsuStart),
+                formattedDate,
+            };
+        });
+
+        // --- Store updated cache ---
+        window.allStreams = streams;
+        localStorage.setItem("allStreams", JSON.stringify(streams));
+        localStorage.setItem("allStreams_count", streams.length);
+
+        console.log("✔ Updated cache with", streams.length, "streams");
+
+        return streams;
+    } catch (err) {
+        console.error("[fetchAllStreams] Error fetching videos:", err);
+        return cachedStreams; // fallback if possible
+    }
 };
 
 
