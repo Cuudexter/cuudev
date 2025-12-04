@@ -20,8 +20,18 @@ async function ytFetch(url) {
   for (let i = 0; i < API_KEYS.length; i++) {
     API_KEY = API_KEYS[API_KEY_INDEX];
 
-    // FIX: the missing tryUrl
-    const tryUrl = String(url).replace(/key=[^&]+/, "key=" + API_KEY);
+    // Ensure tryUrl is always a string
+    let tryUrl;
+    if (typeof url === "string") {
+      tryUrl = url.includes("key=")
+        ? url.replace(/key=[^&]+/, "key=" + API_KEY)
+        : url + (url.includes("?") ? "&" : "?") + "key=" + API_KEY;
+    } else if (url instanceof URL) {
+      url.searchParams.set("key", API_KEY);
+      tryUrl = url.toString();
+    } else {
+      throw new Error("ytFetch received invalid url");
+    }
 
     try {
       const res = await fetch(tryUrl);
