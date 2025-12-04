@@ -55,7 +55,7 @@ async function ytFetch(url) {
       throw new Error("fetch-failed");
 
     } catch (err) {
-      console.warn(`API key ${API_KEY} failed (${err.message}). Rotating…`);
+      console.warn(`API key failed (${err.message}). Rotating…`);
 
       API_KEY_INDEX = (API_KEY_INDEX + 1) % API_KEYS.length;
       API_KEY = API_KEYS[API_KEY_INDEX];
