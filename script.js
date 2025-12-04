@@ -21,9 +21,10 @@ let API_KEY = API_KEYS[API_KEY_INDEX]; // global active key
 // Try the current key. If it fails, rotate and try again.
 async function ytFetch(url) {
   for (let i = 0; i < API_KEYS.length; i++) {
+
     API_KEY = API_KEYS[API_KEY_INDEX];
 
-    // Ensure tryUrl is always a string
+    // Convert URL or string to real request URL
     let tryUrl;
     if (typeof url === "string") {
       tryUrl = url.includes("key=")
@@ -33,29 +34,30 @@ async function ytFetch(url) {
       url.searchParams.set("key", API_KEY);
       tryUrl = url.toString();
     } else {
-      throw new Error("ytFetch received invalid url");
+      throw new Error("Invalid URL passed to ytFetch");
     }
 
     try {
       const res = await fetch(tryUrl);
+      const text = await res.text();
 
-      if (res.ok) {
-        const json = await res.json();
+      // Try JSON first. If it fails → return plain text
+      try {
+        const json = JSON.parse(text);
 
-        if (json.error?.errors?.[0]?.reason) {
-          const reason = json.error.errors[0].reason;
-          if (reason === "quotaExceeded" || reason === "dailyLimitExceeded") {
-            throw new Error("quota");
-          }
+        // Check quota error inside JSON
+        if (json.error?.errors?.[0]?.reason === "quotaExceeded" ||
+            json.error?.errors?.[0]?.reason === "dailyLimitExceeded") {
+          throw new Error("quota");
         }
 
-        return json; // success
+        return json;       // Return parsed JSON
+      } catch {
+        return text;       // CSV / plain text
       }
 
-      throw new Error("fetch-failed");
-
     } catch (err) {
-      console.warn(`API key failed (${err.message}). Rotating…`);
+      console.warn(`API key ${API_KEY} failed (${err.message}). Rotating…`);
 
       API_KEY_INDEX = (API_KEY_INDEX + 1) % API_KEYS.length;
       API_KEY = API_KEYS[API_KEY_INDEX];
