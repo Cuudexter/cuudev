@@ -54,7 +54,7 @@ function loadCollabCSV() {
 }
 
 async function loadExtraCSV(url) {
-  const res = await ytFetch(url);
+  const res = await fetch(url);
   const text = await res.text();
 
   const lines = text.trim().split("\n").filter(x => x.trim());
