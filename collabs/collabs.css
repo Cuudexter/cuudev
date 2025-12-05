@@ -153,8 +153,8 @@ input[type="range"]::-webkit-slider-thumb,
 .slider-input::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: var(--teal);
   border: 2px solid #111;
   transform: rotate(45deg);
@@ -166,8 +166,8 @@ input[type="range"]::-webkit-slider-thumb,
 /* Firefox Thumb */
 input[type="range"]::-moz-range-thumb {
   pointer-events: all;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: var(--teal);
   border: 2px solid #111;
   transform: rotate(45deg);

@@ -186,7 +186,7 @@ select {
   background: #00a2ff;
   border-color: #00a2ff;
   color: #fff;
-  transform: scale(1.05) skewX(-20deg);
+  transform: skewX(-20deg);
 }
 
 .tag-btn.exclude {
