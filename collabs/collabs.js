@@ -336,7 +336,7 @@ async function initCollabsPage() {
   // -------- Load external metadata.csv --------
   let extraRows = [];
   try {
-    extraRows = await loadExtraCSV("metadata.csv");
+    extraRows = await loadExtraCSV("../metadata.csv");
   } catch (e) {
     console.warn("[Collabs] Could not load metadata.csv", e);
   }

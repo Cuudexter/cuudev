@@ -23,7 +23,7 @@ async function initSuggest() {
 
   // --- Load metadata.csv ---
   try {
-    const res = await fetch("metadata.csv");
+    const res = await fetch("../metadata.csv");
     if (!res.ok) throw new Error("Failed to fetch CSV");
     const csvText = await res.text();
     metadataRows = parseCSV(csvText);
