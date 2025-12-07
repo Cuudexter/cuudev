@@ -4,6 +4,13 @@ const TWITTER_USERNAME = "FeileacanCu";
 
 // ==== UTILITIES ====
 
+// Info button things
+const infoBtn = document.getElementById('infoBtn');
+const infoPanel = document.getElementById('infoPanel');
+const closeInfo = document.getElementById('closeInfo');
+
+infoBtn.addEventListener('click', () => infoPanel.classList.add('open'));
+closeInfo.addEventListener('click', () => infoPanel.classList.remove('open'));
 
 
 // ==== MULTI-KEY API ROTATION ====

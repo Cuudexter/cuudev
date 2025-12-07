@@ -647,3 +647,71 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 }
 
 
+/* Circular info button matching your nav-slant style */
+.info-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #dcdcdc;
+  border: 1px solid #555;
+  color: #222;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+  margin-left: 0.5rem;
+}
+
+.info-btn:hover {
+  background-color: #e6e6e6c5;
+  border-color: #888;
+  color: #111;
+}
+
+/* Side panel overlay */
+.info-panel {
+  position: fixed;
+  top: 0;
+  right: -320px; /* hidden by default */
+  width: 320px;
+  height: 100%;
+  background: #1c1c1c;
+  border-left: 1px solid #444;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.info-panel.open {
+  right: 0;
+}
+
+.info-content {
+  padding: 1rem 1.2rem;
+  color: #ccc;
+}
+
+.info-content h2 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+#closeInfo {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #00a2ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+#closeInfo:hover {
+  background: #0088cc;
+}
