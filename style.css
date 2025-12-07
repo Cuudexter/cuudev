@@ -683,7 +683,7 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 .info-btn {
   position: absolute;
   bottom: 0;    /* align to bottom */
-  right: 0;     /* align to right */
+  left: 0;     /* align to left */
   margin: 0;    /* remove previous margin */
 }
 
