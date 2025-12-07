@@ -201,23 +201,12 @@ select {
 }
 
 .tag-btn.exclude {
-  position: relative;
-  overflow: hidden;
-  background: #222; /* solid fallback */
-}
-
-.tag-btn.exclude::before {
-  content: "";
-  position: absolute;
-  inset: -40%; /* overscan to avoid edges */
   background: repeating-linear-gradient(
     to right,
-    #222 0 4px,
-    rgba(243, 151, 231, 0.5) 4px 8px
+    #222 0 8px,
+    rgba(243, 151, 231, 0.3) 8px 16px
   );
-  transform: skewX(20deg); /* inverse of button skew */
-  transform-origin: center;
-  pointer-events: none;
+  border-color: var(--pink);
 }
 
 
