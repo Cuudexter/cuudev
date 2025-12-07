@@ -207,8 +207,7 @@ select {
     var(--pink) 4px 8px
   );
   border-color: var(--pink);
-  color: #222;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 
