@@ -194,7 +194,7 @@ select {
 }
 
 .tag-btn.include {
-  background: #00a2ff;
+  background: rgba(0, 162, 255, 0.8);
   border-color: #00a2ff;
   color: #fff;
   transform: skewX(-20deg);
