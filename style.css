@@ -4,6 +4,7 @@
   --muted: #bbb;
   --track: #333;
   --teal: #00eeff;
+  --pink: #f397e7;
 }
 
 /* Global box-sizing */
@@ -201,21 +202,13 @@ select {
 
 .tag-btn.exclude {
   background: repeating-linear-gradient(
-    135deg,
-    #333 0px,
-    #333 8px,
-    #f397e7 8px,
-    #f397e7 16px
+    to right,
+    #222 0 4px,
+    var(--pink) 4px 8px
   );
-  border-color: #d88ccf;
+  border-color: var(--pink);
   color: #222;
-  opacity: 0.95;
-}
-
-.tag-btn.exclude span {
-  color: #111;
-  font-weight: 600;
-  text-decoration: line-through;
+  opacity: 0.8;
 }
 
 
