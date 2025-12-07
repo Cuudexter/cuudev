@@ -12,6 +12,14 @@ const closeInfo = document.getElementById('closeInfo');
 infoBtn.addEventListener('click', () => infoPanel.classList.add('open'));
 closeInfo.addEventListener('click', () => infoPanel.classList.remove('open'));
 
+// Click on left edge closes the panel
+infoPanel.addEventListener('click', (e) => {
+  // Only trigger if clicked the pseudo-edge area
+  const rect = infoPanel.getBoundingClientRect();
+  if (e.clientX < rect.left + 30) {
+    infoPanel.classList.remove('open');
+  }
+});
 
 // ==== MULTI-KEY API ROTATION ====
 const API_KEYS = [

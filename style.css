@@ -662,7 +662,6 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   align-items: center;
   justify-content: center;
   transition: background-color 0.16s ease, border-color 0.16s ease;
-  margin-left: 0.5rem;
 }
 
 .info-btn:hover {
@@ -670,6 +669,25 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   border-color: #888;
   color: #111;
 }
+
+.header-actions {
+  position: relative; /* allow absolute positioning inside */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+/* Position info button at bottom-right of header-actions */
+.info-btn {
+  position: absolute;
+  bottom: 0;    /* align to bottom */
+  right: 0;     /* align to right */
+  margin: 0;    /* remove previous margin */
+}
+
+
 
 /* Side panel overlay */
 .info-panel {
@@ -714,4 +732,25 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 
 #closeInfo:hover {
   background: #0088cc;
+}
+
+
+
+/* Slider-info hover click */
+
+/* Add a hoverable left edge for closing */
+.info-panel::before {
+  content: '';
+  position: absolute;
+  left: -30px;  /* extend clickable area to the left */
+  top: 0;
+  width: 30px;
+  height: 100%;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.info-panel::before:hover {
+  background: rgba(255,255,255,0.05);
 }

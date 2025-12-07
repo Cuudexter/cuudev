@@ -39,15 +39,21 @@
   <a href="suggest" id="suggestTagBtn" class="nav-slant-btn"><span>Suggest Tag</span></a>
   <a href="about" id="suggestTagBtn" class="nav-slant-btn"><span>About</span></a>
   
-  <button id="infoBtn" class="info-btn">(i)</button>
+  <button id="infoBtn" class="info-btn">i</button>
   <div id="infoPanel" class="info-panel">
     <div class="info-content">
       <h2>Using Filters</h2>
-      <p><strong>Tags:</strong> Click to include/exclude tags. Blue = include, pink = exclude.</p>
+      <p><strong>Tags:</strong> Click to include/exclude tags.</p>
+      <ul>
+        <li><img src="include.png" alt="Include" style="height:20px;vertical-align:middle;"> = Include (blue)</li>
+        <li><img src="exclude.png" alt="Exclude" style="height:20px;vertical-align:middle;"> = Exclude (pink)</li>
+        <li><img src="unselected.png" alt="Unselected" style="height:20px;vertical-align:middle;"> = Unselected</li>
+      </ul>
       <p><strong>Duration Slider:</strong> Drag the slider to filter streams by length.</p>
       <p><strong>Sorting:</strong> Use the "Newest/Oldest First" dropdown to reorder streams.</p>
       <button id="closeInfo">Close</button>
     </div>
+
   </div>
 </div>
 
