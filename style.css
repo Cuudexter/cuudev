@@ -127,7 +127,8 @@ select {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
   gap: 1.5rem;
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 1.5rem;
   padding-top: 0px;
   flex: 1;
   align-content: start;
@@ -199,12 +200,24 @@ select {
 }
 
 .tag-btn.exclude {
-  background: #333;
-  border-color: #666;
-  color: #f397e7;
-  text-decoration: line-through;
-  opacity: 0.9;
+  background: repeating-linear-gradient(
+    135deg,
+    #333 0px,
+    #333 8px,
+    #f397e7 8px,
+    #f397e7 16px
+  );
+  border-color: #d88ccf;
+  color: #222;
+  opacity: 0.95;
 }
+
+.tag-btn.exclude span {
+  color: #111;
+  font-weight: 600;
+  text-decoration: line-through;
+}
+
 
 /* Protecting tag button corners */
 .tag-section {
