@@ -752,5 +752,5 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 }
 
 .info-panel::before:hover {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.4);
 }
