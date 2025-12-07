@@ -22,6 +22,15 @@ body {
   flex-direction: column;
 }
 
+/* Fixed position, scroll bar or no */
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  overflow-y: auto;
+}
+
 /* ===== HEADER ===== */
 .channel-header {
   display: flex;
