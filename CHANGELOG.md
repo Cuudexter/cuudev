@@ -13,13 +13,17 @@ All notable changes to Cuudex will be shown here.
 - Fix weird Tag button wrap on load
 - Add relevant mouseover info (tags?)
 
-## [XXXXXXXX] - 2025-12-07
+## [1.2.2] - 2025-12-08
 
 ### Added
-- Tagged yesterday's stream
+- Tagged recent stream
 
 ### Changed
 - <i>One-Shot</i> tag added for Cuu's gameless special feature streams
+- Better visuals for Exclude/Include tag functionality
+
+### Fixed
+- Prevented side-shifting form scrollbar (dis)appearance
 
 ## [1.2.1] - 2025-12-05
 
