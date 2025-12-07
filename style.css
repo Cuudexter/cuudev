@@ -204,10 +204,9 @@ select {
   background: repeating-linear-gradient(
     to right,
     #222 0 4px,
-    var(--pink) 4px 8px
+    rgba(243, 151, 231, 0.5) 4px 8px
   );
   border-color: var(--pink);
-  opacity: 0.5;
 }
 
 
