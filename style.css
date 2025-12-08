@@ -577,7 +577,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
-  margin: -0.25rem;
+  gap: 0.5rem;
 }
 
 .tag-btn {
@@ -594,7 +594,6 @@ select {
   transform: skewX(-20deg);
   transition: all 0.2s ease;    
   box-sizing: border-box;
-  margin: 0.25rem;
 }
 
 .tag-btn span {
