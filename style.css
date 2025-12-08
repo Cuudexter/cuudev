@@ -575,13 +575,13 @@ select {
 #tag-filters {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
   gap: 0.5rem;
-  align-items: center;
 }
 
 
 .tag-btn {
-  display: flex !important;      
+  display: inline-flex;    /* important for proper width calculation with skew */
   align-items: center;
   justify-content: center;
   height: 30px;
@@ -593,10 +593,9 @@ select {
   color: #ccc;
   transform: skewX(-20deg);
   transition: all 0.2s ease;
-  flex-shrink: 0;
-  flex-grow: 0;
-  box-sizing: border-box;
-  min-width: 0;                 
+  flex-shrink: 0;          
+  box-sizing: border-box;  /* include border/padding in width */
+  min-width: 0;            /* prevents implicit min width from transform */
 }
 
 
@@ -726,7 +725,7 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 
   background: linear-gradient(
     to right,
-    rgba(243, 151, 231, 0.35),
+    rgba(220, 220, 220, 0.35),
     rgba(243, 151, 231, 0)
   );
 
@@ -741,7 +740,7 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   left: 6px;
   top: 50%;
   transform: translateY(-50%);
-  color: rgba(243, 151, 231, 0.7);
+  color: rgba(220, 220, 220, 0.7);
   font-size: 20px;
   letter-spacing: -4px;
   pointer-events: none;
