@@ -595,7 +595,7 @@ select {
   border: 1px solid #555;
   background: #222;
   color: #ccc;
-  transform: skewX(-20deg);
+  transform: none;
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
@@ -647,8 +647,11 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 }
 
 
-/* Circular info button matching your nav-slant style */
+/* Circular info button */
 .info-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -670,8 +673,9 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   color: #111;
 }
 
+/* Header actions container */
 .header-actions {
-  position: relative; /* allow absolute positioning inside */
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -679,21 +683,11 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   align-items: flex-end;
 }
 
-/* Position info button at bottom-right of header-actions */
-.info-btn {
-  position: absolute;
-  bottom: 0;    /* align to bottom */
-  left: 0;     /* align to left */
-  margin: 0;    /* remove previous margin */
-}
-
-
-
-/* Side panel overlay */
+/* Info panel */
 .info-panel {
   position: fixed;
   top: 0;
-  right: -320px; /* hidden by default */
+  right: -320px;
   width: 320px;
   height: 100%;
   background: #1c1c1c;
@@ -719,6 +713,49 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   margin-bottom: 0.8rem;
 }
 
+/* Clickable close edge */
+.info-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 5;
+
+  background: linear-gradient(
+    to right,
+    rgba(243, 151, 231, 0.35),
+    rgba(243, 151, 231, 0)
+  );
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Arrow indicator */
+.info-panel::after {
+  content: '‹‹';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(243, 151, 231, 0.7);
+  font-size: 20px;
+  letter-spacing: -4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Reveal on hover */
+.info-panel:hover::before,
+.info-panel:hover::after {
+  opacity: 1;
+}
+
+
 #closeInfo {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
@@ -726,31 +763,8 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   color: #fff;
   border: none;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 2px;
   transition: background 0.2s ease;
 }
 
-#closeInfo:hover {
-  background: #0088cc;
-}
 
-
-
-/* Slider-info hover click */
-
-/* Add a hoverable left edge for closing */
-.info-panel::before {
-  content: '';
-  position: absolute;
-  left: -30px;  /* extend clickable area to the left */
-  top: 0;
-  width: 30px;
-  height: 100%;
-  cursor: pointer;
-  background: transparent;
-  transition: background 0.2s ease;
-}
-
-.info-panel::before:hover {
-  background: rgba(255,255,255,0.4);
-}
