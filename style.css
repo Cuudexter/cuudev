@@ -595,7 +595,7 @@ select {
   border: 1px solid #555;
   background: #222;
   color: #ccc;
-  transform: skewX(20deg);
+  transform: skewX(-20deg);
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
@@ -766,7 +766,5 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   border-radius: 2px;
   transition: background 0.2s ease;
 }
-
-
 
 
