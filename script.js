@@ -752,7 +752,7 @@ function applyTagCollapseState() {
 
   // collapse logic
   if (collapseStage === 0) {
-    buttons.forEach(b => b.style.display = "");
+    buttons.forEach(b => b.style.display = "flex");
     collapseBtn.querySelector("span").textContent = "Collapse ◂";
   } else if (collapseStage === 1) {
     buttons.forEach(b => {
