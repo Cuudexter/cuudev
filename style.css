@@ -575,6 +575,7 @@ select {
 #tag-filters {
   display: flex;
   flex-wrap: wrap;
+  min-width: 0;
   align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
   gap: 0.5rem;
 }
@@ -591,7 +592,7 @@ select {
   border: 1px solid #555;
   background: #222;
   color: #ccc;
-  transform: skewX(20deg);
+  transform: skewX(-20deg);
   transition: all 0.2s ease;
   flex-shrink: 0;          /* don’t shrink */
   box-sizing: border-box;  /* include border/padding in width */
