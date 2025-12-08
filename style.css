@@ -574,14 +574,11 @@ select {
 /* Ensure tag-section wraps naturally */
 .tag-section,
 #tag-filters {
-  flex: 1 1 auto;  /* grow/shrink naturally */
-  min-width: 0;    /* prevents flex shrinking issues */
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
-  gap: 0.5rem;
+  align-items: flex-start;
+  width: 100%;
 }
-
 
 .tag-btn {
   display: inline-flex;
@@ -596,18 +593,16 @@ select {
   color: #ccc;
   transform: skewX(-20deg);
   transition: all 0.2s ease;
-  flex: 0 0 auto;      
+  flex-shrink: 0;      /* important: prevents shrinking in flex line */
   box-sizing: border-box;
-  white-space: nowrap; 
+  white-space: nowrap;
+  margin-right: 0.5rem; /* replace gap for skewed buttons */
+  margin-bottom: 0.5rem;
 }
-
-
 
 .tag-btn span {
   display: inline-block;
   transform: skewX(20deg);
-  white-space: nowrap;
-  /* keep display inline-block (text) */
 }
 
 
