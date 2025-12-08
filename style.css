@@ -593,11 +593,11 @@ select {
   color: #ccc;
   transform: skewX(-20deg);
   transition: all 0.2s ease;
-
-  flex: 0 0 auto;      /* prevent shrinking or growing */
+  flex: 0 0 auto;      
   box-sizing: border-box;
-  min-width: 0;
+  white-space: nowrap; 
 }
+
 
 
 .tag-btn span {
