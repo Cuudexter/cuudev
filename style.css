@@ -581,7 +581,7 @@ select {
 
 
 .tag-btn {
-  display: inline-flex;    /* important for proper width calculation with skew */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 30px;
@@ -593,9 +593,10 @@ select {
   color: #ccc;
   transform: skewX(-20deg);
   transition: all 0.2s ease;
-  flex-shrink: 0;          
-  box-sizing: border-box;  /* include border/padding in width */
-  min-width: 0;            /* prevents implicit min width from transform */
+
+  flex: 0 0 auto;      /* prevent shrinking or growing */
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 

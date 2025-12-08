@@ -376,24 +376,6 @@ function updateTagButtonStyle(btn, state) {
   if (state === "exclude") btn.classList.add("exclude");
 }
 
-// Fixing Tag Wrap
-function normalizeTagButtons() {
-  document.querySelectorAll(".tag-btn").forEach(btn => {
-    btn.style.display = "inline-flex";
-  });
-}
-
-// Run after tags are created
-requestAnimationFrame(() => {
-  normalizeTagButtons();
-});
-
-// Run again if layout changes
-window.addEventListener("resize", () => {
-  requestAnimationFrame(normalizeTagButtons);
-});
-
-
 // ==== SLIDER LOGIC ====
 
 function setupDualSlider(options) {
@@ -575,9 +557,6 @@ async function initMainPage() {
     const sample = Object.keys(Object.values(tagMap)[0] || {});
     const tagNames = sample.filter(t => !["stream_link","stream_title", "zatsu_start", "zatsuStartMinutes"].includes(t));
     createTagButtons(tagNames);
-
-createTagButtons(tagNames);
-requestAnimationFrame(normalizeTagButtons);
 
 // ------------------------------
 // GLUE COLLAPSE BUTTON TO FIRST TAG WITHOUT AFFECTING BUTTON SHAPE
