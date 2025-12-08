@@ -575,14 +575,13 @@ select {
 #tag-filters {
   display: flex;
   flex-wrap: wrap;
-  min-width: 0;
-  align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
   gap: 0.5rem;
+  align-items: center;
 }
 
 
 .tag-btn {
-  display: inline-flex;    /* important for proper width calculation with skew */
+  display: flex !important;      
   align-items: center;
   justify-content: center;
   height: 30px;
@@ -594,9 +593,10 @@ select {
   color: #ccc;
   transform: skewX(-20deg);
   transition: all 0.2s ease;
-  flex-shrink: 0;          /* don’t shrink */
-  box-sizing: border-box;  /* include border/padding in width */
-  min-width: 0;            /* prevents implicit min width from transform */
+  flex-shrink: 0;
+  flex-grow: 0;
+  box-sizing: border-box;
+  min-width: 0;                 
 }
 
 
