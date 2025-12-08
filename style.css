@@ -576,8 +576,8 @@ select {
 #tag-filters {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  width: 100%;
+  align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
+  gap: 0.5rem;
 }
 
 .tag-btn {
@@ -592,17 +592,13 @@ select {
   background: #222;
   color: #ccc;
   transform: skewX(-20deg);
-  transition: all 0.2s ease;
-  flex-shrink: 0;      /* important: prevents shrinking in flex line */
+  transition: all 0.2s ease;    
   box-sizing: border-box;
-  white-space: nowrap;
-  margin-right: 0.5rem; /* replace gap for skewed buttons */
-  margin-bottom: 0.5rem;
 }
 
 .tag-btn span {
   display: inline-block;
-  transform: skewX(20deg);
+  transform: skewX(20deg); /* keeps text straight */
 }
 
 
