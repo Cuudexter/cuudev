@@ -474,6 +474,7 @@ select {
   cursor: pointer;
   position: relative;
   margin-right: -5px;
+  flex: 0 0 auto;
 }
 
 /* Text stays normal and above visuals */
@@ -573,6 +574,8 @@ select {
 /* Ensure tag-section wraps naturally */
 .tag-section,
 #tag-filters {
+  flex: 1 1 auto;  /* grow/shrink naturally */
+  min-width: 0;    /* prevents flex shrinking issues */
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
