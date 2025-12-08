@@ -571,21 +571,17 @@ select {
 }
 
 /* Ensure tag-section wraps naturally */
-.tag-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* tag container allows wrapping - note COLLABS */
+.tag-section,
 #tag-filters {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
   gap: 0.5rem;
 }
 
+
 .tag-btn {
+  display: inline-flex;    /* important for proper width calculation with skew */
   align-items: center;
   justify-content: center;
   height: 30px;
@@ -595,10 +591,13 @@ select {
   border: 1px solid #555;
   background: #222;
   color: #ccc;
-  transform: skewX(-20deg);
+  transform: skewX(20deg);
   transition: all 0.2s ease;
-  flex-shrink: 0;
+  flex-shrink: 0;          /* don’t shrink */
+  box-sizing: border-box;  /* include border/padding in width */
+  min-width: 0;            /* prevents implicit min width from transform */
 }
+
 
 .tag-btn span {
   display: inline-block;
