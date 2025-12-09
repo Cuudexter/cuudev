@@ -9,17 +9,29 @@ const infoBtn = document.getElementById('infoBtn');
 const infoPanel = document.getElementById('infoPanel');
 const closeInfo = document.getElementById('closeInfo');
 
-infoBtn.addEventListener('click', () => infoPanel.classList.add('open'));
-closeInfo.addEventListener('click', () => infoPanel.classList.remove('open'));
+// Open
+if (infoBtn && infoPanel) {
+  infoBtn.addEventListener('click', () => {
+    infoPanel.classList.add('open');
+  });
+}
 
-// Click on left edge closes the panel
-infoPanel.addEventListener('click', (e) => {
-  // Only trigger if clicked the pseudo-edge area
-  const rect = infoPanel.getBoundingClientRect();
-  if (e.clientX < rect.left + 30) {
+// Close via button
+if (closeInfo && infoPanel) {
+  closeInfo.addEventListener('click', () => {
     infoPanel.classList.remove('open');
-  }
-});
+  });
+}
+
+// Close by clicking left edge
+if (infoPanel) {
+  infoPanel.addEventListener('click', (e) => {
+    const rect = infoPanel.getBoundingClientRect();
+    if (e.clientX < rect.left + 30) {
+      infoPanel.classList.remove('open');
+    }
+  });
+}
 
 // ==== MULTI-KEY API ROTATION ====
 const API_KEYS = [
