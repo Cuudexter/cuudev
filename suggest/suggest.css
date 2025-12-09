@@ -1,8 +1,10 @@
 /* ===== Suggest Page Header Layout  ===== */
 .top-header.suggest-header {
   padding: 1.5rem 2rem;
-  display: block;       
-  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 /* Title */
@@ -23,16 +25,14 @@
 
 /* Header right-side actions */
 .nav-slant-btn {
-  position: absolute;
-  top: 1.5rem; 
-  right: 2rem; 
   display: flex;
   align-items: center;
 }
 
 /* Move the Return button upward on subpages */
 .header-actions {
-  margin-top: -55px;
+  margin-left: auto;
+  align-items: flex-end;
 }
 
 /* ==== Search Bar ==== */

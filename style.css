@@ -133,6 +133,7 @@ select {
   padding-top: 0px;
   flex: 1;
   align-content: start;
+  padding-bottom: 1rem;
 }
 
 /* ===== VIDEO CARD ===== */
