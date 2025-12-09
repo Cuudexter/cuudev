@@ -2,7 +2,8 @@
 .top-header.suggest-header {
   padding: 1.5rem 2rem;
   display: block;       
-  position: relative;   
+  position: relative;
+  display: flex;
 }
 
 /* Title */
