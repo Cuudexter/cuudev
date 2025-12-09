@@ -3,7 +3,6 @@
   padding: 1.5rem 2rem;
   display: block;       
   position: relative;
-  display: flex;
 }
 
 /* Title */
@@ -31,6 +30,10 @@
   align-items: center;
 }
 
+/* Move the Return button upward on subpages */
+.header-actions {
+  margin-top: -55px;
+}
 
 /* ==== Search Bar ==== */
 .search-container {
