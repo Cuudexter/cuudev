@@ -1,8 +1,20 @@
-/* ===== Suggest Page Header Layout  ===== */
+/* ===== Suggest Page Header – Flex like main page ===== */
 .top-header.suggest-header {
-  padding: 1.5rem 2rem;
-  display: block;       
-  position: relative;   
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem 1rem;
+  flex-wrap: wrap;
+}
+
+.top-header.suggest-header .header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+body.suggest-page .header-actions {
+  flex-direction: row;
 }
 
 /* Title */
@@ -15,21 +27,21 @@
 .tag-input-wrapper {
   width: 100%;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin: 0; 
 }
 
 /* Header right-side actions */
 .nav-slant-btn {
-  position: absolute;
-  top: 1.5rem; 
-  right: 2rem; 
   display: flex;
   align-items: center;
 }
 
+/* Move the Return button upward on subpages */
+.header-actions {
+  align-items: flex-end;
+}
 
 /* ==== Search Bar ==== */
 .search-container {

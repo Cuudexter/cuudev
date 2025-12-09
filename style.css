@@ -133,6 +133,7 @@ select {
   padding-top: 0px;
   flex: 1;
   align-content: start;
+  padding-bottom: 1rem;
 }
 
 /* ===== VIDEO CARD ===== */
@@ -474,6 +475,7 @@ select {
   cursor: pointer;
   position: relative;
   margin-right: -5px;
+  flex: 0 0 auto;
 }
 
 /* Text stays normal and above visuals */
@@ -571,21 +573,16 @@ select {
 }
 
 /* Ensure tag-section wraps naturally */
-.tag-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* tag container allows wrapping - note COLLABS */
+.tag-section,
 #tag-filters {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;   /* better than center for multiple lines - CENTER OLD*/
   gap: 0.5rem;
 }
 
 .tag-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 30px;
@@ -596,15 +593,13 @@ select {
   background: #222;
   color: #ccc;
   transform: skewX(-20deg);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
+  transition: all 0.2s ease;    
+  box-sizing: border-box;
 }
 
 .tag-btn span {
   display: inline-block;
-  transform: skewX(20deg);
-  white-space: nowrap;
-  /* keep display inline-block (text) */
+  transform: skewX(20deg); /* keeps text straight */
 }
 
 
@@ -644,6 +639,127 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   border-color: #555;
   color: #111;
   outline: none;
+}
+
+
+/* Circular info button */
+.info-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #dcdcdc;
+  border: 1px solid #555;
+  color: #222;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.info-btn:hover {
+  background-color: #e6e6e6c5;
+  border-color: #888;
+  color: #111;
+}
+
+/* Header actions container */
+.header-actions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+/* Info panel */
+.info-panel {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100%;
+  background: #1c1c1c;
+  border-left: 1px solid #444;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.info-panel.open {
+  right: 0;
+}
+
+.info-content {
+  padding: 1rem 1.2rem;
+  color: #ccc;
+}
+
+.info-content h2 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Clickable close edge */
+.info-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 5;
+
+  background: linear-gradient(
+    to right,
+    rgba(220, 220, 220, 0.35),
+    rgba(243, 151, 231, 0)
+  );
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Arrow indicator */
+.info-panel::after {
+  content: '‹‹';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(220, 220, 220, 0.7);
+  font-size: 20px;
+  letter-spacing: -4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Reveal on hover */
+.info-panel:hover::before,
+.info-panel:hover::after {
+  opacity: 1;
+}
+
+
+#closeInfo {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #00a2ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s ease;
 }
 
 

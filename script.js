@@ -4,7 +4,34 @@ const TWITTER_USERNAME = "FeileacanCu";
 
 // ==== UTILITIES ====
 
+// Info button things
+const infoBtn = document.getElementById('infoBtn');
+const infoPanel = document.getElementById('infoPanel');
+const closeInfo = document.getElementById('closeInfo');
 
+// Open
+if (infoBtn && infoPanel) {
+  infoBtn.addEventListener('click', () => {
+    infoPanel.classList.add('open');
+  });
+}
+
+// Close via button
+if (closeInfo && infoPanel) {
+  closeInfo.addEventListener('click', () => {
+    infoPanel.classList.remove('open');
+  });
+}
+
+// Close by clicking left edge
+if (infoPanel) {
+  infoPanel.addEventListener('click', (e) => {
+    const rect = infoPanel.getBoundingClientRect();
+    if (e.clientX < rect.left + 30) {
+      infoPanel.classList.remove('open');
+    }
+  });
+}
 
 // ==== MULTI-KEY API ROTATION ====
 const API_KEYS = [
@@ -542,8 +569,6 @@ async function initMainPage() {
     const sample = Object.keys(Object.values(tagMap)[0] || {});
     const tagNames = sample.filter(t => !["stream_link","stream_title", "zatsu_start", "zatsuStartMinutes"].includes(t));
     createTagButtons(tagNames);
-
-createTagButtons(tagNames);
 
 // ------------------------------
 // GLUE COLLAPSE BUTTON TO FIRST TAG WITHOUT AFFECTING BUTTON SHAPE
