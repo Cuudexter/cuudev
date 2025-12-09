@@ -35,6 +35,7 @@
 
   .top-header.suggest-header .header-actions {
     grid-column: 1;
+    grid-row: 2;
     justify-self: start;
   }
 }
