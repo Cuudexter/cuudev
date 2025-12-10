@@ -11,6 +11,12 @@ All notable changes to Cuudex will be shown here.
 - Fix weird Tag button wrap on load
 - Add relevant mouseover info (tags?)
 
+## [1.3.1] - 2025-12-11
+
+### Added
+- New Tag <i>Romanceable</i>
+- Tags for recent stream
+
 ## [1.3.0] - 2025-12-09
 
 ### Added
