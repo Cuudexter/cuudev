@@ -8,10 +8,14 @@ All notable changes to Cuudex will be shown here.
 - Add Live stream and Waiting Room links (my amazing excuse is that I have no data to work with!)
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
-- Fix weird Tag button wrap on load
 - Add relevant mouseover info (tags?)
 
-## [1.3.2] - 2025-12-11
+## [1.3.3] - 2025-12-14
+
+### Fixed
+- Weird Tag button wrap on load
+
+## [1.3.2] - 2025-12-14
 
 ### Added
 - New Tag <i>Vod+</i> for edited vods
