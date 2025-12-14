@@ -350,22 +350,26 @@ function extractVideoId(value) {
 let tagStates = {}; // three-state per tag
 
 function createTagButtons(tagNames) {
-  const container = document.querySelector(".tag-section");
-  if (!container) return;
+const container = document.querySelector(".tag-section");
+if (!container) return;
 
-  container.innerHTML = "";
-  tagStates = {};
+tagStates = {};
 
-  tagNames.forEach(tag => {
-    tagStates[tag] = "none";
-    const btn = document.createElement("button");
-    btn.className = "tag-btn";
-    btn.innerHTML = `<span>${tag}</span>`;
-    btn.addEventListener("click", () => cycleTagState(tag, btn));
-    updateTagButtonStyle(btn, "none");
+// Keep collapse button
+const collapseBtn = document.getElementById("collapseTagsBtn");
+container.innerHTML = ""; // wipes everything
+if (collapseBtn) container.appendChild(collapseBtn); // restore it
 
-    container.appendChild(btn);
-  });
+tagNames.forEach(tag => {
+  tagStates[tag] = "none";
+  const btn = document.createElement("button");
+  btn.className = "tag-btn";
+  btn.innerHTML = `<span>${tag}</span>`;
+  btn.addEventListener("click", () => cycleTagState(tag, btn));
+  updateTagButtonStyle(btn, "none");
+
+  container.appendChild(btn);
+});
 }
 
 function cycleTagState(tag, btn) {
