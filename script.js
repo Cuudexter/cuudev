@@ -350,7 +350,7 @@ function extractVideoId(value) {
 let tagStates = {}; // three-state per tag
 
 function createTagButtons(tagNames) {
-  const container = document.getElementById("tag-filters");
+  const container = document.getElementById(".tag-section");
   const firstSlot = document.querySelector(".first-tag-slot");
   if (!container) return;
 
@@ -714,7 +714,7 @@ document.getElementById("suggestTagBtn")?.addEventListener("click", () => {
 
 // === TAG COLLAPSE TOGGLE (3-STAGE) ===
 const collapseBtn = document.getElementById("collapseTagsBtn");
-const tagFilterContainer = document.getElementById("tag-filters");
+const tagFilterContainer = document.getElementById(".tag-section");
 
 let collapseStage = 0; // 0 = all visible, 1 = only included/excluded shown, 2 = none shown
 

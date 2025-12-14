@@ -782,3 +782,10 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
+
+.tag-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
