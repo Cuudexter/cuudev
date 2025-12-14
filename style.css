@@ -217,6 +217,12 @@ select {
   padding-right: 2px;
 }
 
+.tag-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 /* ===== Suggest Buttons / Cards ===== */
 .suggest-btn {
   background: #00eeff;
@@ -761,31 +767,5 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 
 
 
-.tag-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-/* Collapse + first tag = indivisible unit */
-.tag-head {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-
-/* Remaining tags wrap freely */
-.tag-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
 
 
-.tag-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}

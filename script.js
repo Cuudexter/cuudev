@@ -570,6 +570,8 @@ async function initMainPage() {
 
     const sample = Object.keys(Object.values(tagMap)[0] || {});
     const tagNames = sample.filter(t => !["stream_link","stream_title", "zatsu_start", "zatsuStartMinutes"].includes(t));
+    // Sort alphabetically
+    tagNames.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
     createTagButtons(tagNames);
 
 // ------------------------------
