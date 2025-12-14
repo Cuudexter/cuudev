@@ -351,14 +351,12 @@ let tagStates = {}; // three-state per tag
 
 function createTagButtons(tagNames) {
   const container = document.querySelector(".tag-section");
-  const firstSlot = document.querySelector(".first-tag-slot");
   if (!container) return;
 
   container.innerHTML = "";
-  firstSlot.innerHTML = "";
   tagStates = {};
 
-  tagNames.forEach((tag, i) => {
+  tagNames.forEach(tag => {
     tagStates[tag] = "none";
     const btn = document.createElement("button");
     btn.className = "tag-btn";
@@ -366,11 +364,7 @@ function createTagButtons(tagNames) {
     btn.addEventListener("click", () => cycleTagState(tag, btn));
     updateTagButtonStyle(btn, "none");
 
-    if (i === 0 && firstSlot) {
-      firstSlot.appendChild(btn);   // ⬅ first tag is LOCKED with collapse
-    } else {
-      container.appendChild(btn);
-    }
+    container.appendChild(btn);
   });
 }
 
