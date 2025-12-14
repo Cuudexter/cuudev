@@ -565,12 +565,7 @@ select {
 
 /* Tag buttons & filtering */
 
-.collapse-first-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;   /* allow wrapping on small screens */
-}
+
 
 /* Ensure tag-section wraps naturally */
 .tag-section,
@@ -763,3 +758,27 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
 }
 
 
+
+
+
+.tag-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Collapse + first tag = indivisible unit */
+.tag-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* Remaining tags wrap freely */
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

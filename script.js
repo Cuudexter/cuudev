@@ -351,22 +351,26 @@ let tagStates = {}; // three-state per tag
 
 function createTagButtons(tagNames) {
   const container = document.getElementById("tag-filters");
+  const firstSlot = document.querySelector(".first-tag-slot");
   if (!container) return;
 
-  // sort alphabetically to keep UI consistent
-  tagNames = [...tagNames].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-
   container.innerHTML = "";
+  firstSlot.innerHTML = "";
   tagStates = {};
 
-  tagNames.forEach(tag => {
+  tagNames.forEach((tag, i) => {
     tagStates[tag] = "none";
     const btn = document.createElement("button");
     btn.className = "tag-btn";
     btn.innerHTML = `<span>${tag}</span>`;
     btn.addEventListener("click", () => cycleTagState(tag, btn));
     updateTagButtonStyle(btn, "none");
-    container.appendChild(btn);
+
+    if (i === 0 && firstSlot) {
+      firstSlot.appendChild(btn);   // ⬅ first tag is LOCKED with collapse
+    } else {
+      container.appendChild(btn);
+    }
   });
 }
 
@@ -571,40 +575,6 @@ async function initMainPage() {
     createTagButtons(tagNames);
 
 // ------------------------------
-// GLUE COLLAPSE BUTTON TO FIRST TAG WITHOUT AFFECTING BUTTON SHAPE
-(function glueCollapseToFirstTag() {
-  const section = document.querySelector(".tag-section");
-  const collapseBtn = document.getElementById("collapseTagsBtn");
-  const tagFilters = document.getElementById("tag-filters");
-  if (!section || !collapseBtn || !tagFilters) return;
-
-  // wrap collapse + first tag in inline-flex container
-  let firstRowWrapper = section.querySelector(".collapse-first-row");
-  if (!firstRowWrapper) {
-    firstRowWrapper = document.createElement("div");
-    firstRowWrapper.className = "collapse-first-row";
-    firstRowWrapper.style.display = "inline-flex";
-    firstRowWrapper.style.alignItems = "center";
-    firstRowWrapper.style.gap = "0.5rem";
-    section.insertBefore(firstRowWrapper, tagFilters);
-    firstRowWrapper.appendChild(collapseBtn);
-  }
-
-  // move first tag into firstRowWrapper
-  const moveFirstTag = () => {
-    const firstTag = tagFilters.querySelector(".tag-btn");
-    if (firstTag && firstTag.parentElement !== firstRowWrapper) {
-      firstRowWrapper.appendChild(firstTag);
-    }
-  };
-
-  moveFirstTag();
-
-  // Observe changes (optional, helps on zoom/layout shifts)
-  const ro = new ResizeObserver(() => requestAnimationFrame(moveFirstTag));
-  ro.observe(section);
-  ro.observe(tagFilters);
-})();
 
     allStreams = fetched.map(s => {
       const tags = tagMap[s.id] || {};
