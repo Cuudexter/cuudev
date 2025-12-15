@@ -473,7 +473,7 @@ function displayStreams(streams) {
       k => k && k !== "stream_link" && k !== "zatsu_start"
     );
 
-    const isVodPlus = streamHasTagValue(s, "Vod+");
+    const isVodPlus = streamHasTagValue(s, "Supercut");
 
     let statusLabel = "";
 
