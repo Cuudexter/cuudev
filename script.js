@@ -469,13 +469,19 @@ function displayStreams(streams) {
   }
 
   grid.innerHTML = streams.map(s => {
-    const isTagged = s.tags && Object.keys(s.tags).some(k => k && k !== "stream_link" && k !== "zatsu_start");
+    const isTagged = s.tags && Object.keys(s.tags).some(
+      k => k && k !== "stream_link" && k !== "zatsu_start"
+    );
 
     const isVodPlus = streamHasTagValue(s, "Vod+");
 
-    const untaggedLabel = !isTagged
-      ? `<span class="untagged-label">Untagged</span>`
-      : "";
+    let statusLabel = "";
+
+    if (isVodPlus) {
+      statusLabel = `<span class="vodplus-label">Supercut VOD</span>`;
+    } else if (!isTagged) {
+      statusLabel = `<span class="untagged-label">Untagged</span>`;
+    }
 
     const displayedDuration = s.durationMinutes || 0;
 
@@ -488,7 +494,7 @@ function displayStreams(streams) {
           <h3>${escapeHtml(s.title)}</h3>
           <div class="video-meta">
             <p class="video-date">${s.formattedDate}</p>
-            ${untaggedLabel}
+            ${statusLabel}
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
         </div>
