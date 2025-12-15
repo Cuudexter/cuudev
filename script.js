@@ -470,13 +470,17 @@ function displayStreams(streams) {
 
   grid.innerHTML = streams.map(s => {
     const isTagged = s.tags && Object.keys(s.tags).some(k => k && k !== "stream_link" && k !== "zatsu_start");
-    const untaggedLabel = !isTagged ? `<span class="untagged-label">Untagged</span>` : "";
 
-    // Use currentDurationType for displayed duration
+    const isVodPlus = streamHasTagValue(s, "Vod+");
+
+    const untaggedLabel = !isTagged
+      ? `<span class="untagged-label">Untagged</span>`
+      : "";
+
     const displayedDuration = s.durationMinutes || 0;
 
     return `
-      <div class="video-card">
+      <div class="video-card ${isVodPlus ? "vod-plus" : ""}">
         <a href="https://youtu.be/${s.id}" target="_blank" class="thumb-link">
           <img src="${s.thumbnail}" alt="${escapeHtml(s.title)}" loading="lazy" />
         </a>
@@ -491,6 +495,7 @@ function displayStreams(streams) {
       </div>
     `;
   }).join("");
+
 }
 
 function streamHasTagValue(stream, tagName) {

@@ -189,6 +189,34 @@ select {
   white-space: nowrap;
 }
 
+/* === Vod+ special streams === */
+.video-card.vod-plus {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 215, 120, 0.08),
+    rgba(28, 28, 28, 1)
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 215, 120, 0.25),
+    0 0 14px rgba(255, 200, 90, 0.15);
+}
+
+.video-card.vod-plus .video-info {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 215, 120, 0.06),
+    rgba(28, 28, 28, 1)
+  );
+}
+
+/* Optional: slightly richer glow on hover */
+.video-card.vod-plus:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 215, 120, 0.45),
+    0 0 18px rgba(255, 200, 90, 0.25);
+}
+
+
 /* ===== TAG BUTTON FILTERS ===== */
 .tag-btn:hover {
   background: #333;
