@@ -478,7 +478,7 @@ function displayStreams(streams) {
     let statusLabel = "";
 
     if (isVodPlus) {
-      statusLabel = `<span class="vodplus-label">Supercut VOD</span>`;
+      statusLabel = `<span class="vodplus-label">Supercut</span>`;
     } else if (!isTagged) {
       statusLabel = `<span class="untagged-label">Untagged</span>`;
     }
