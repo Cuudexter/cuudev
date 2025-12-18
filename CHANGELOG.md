@@ -10,14 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
-<<<<<<< HEAD
-=======
 ## [1.3.5] - 2025-12-18
 
 ### Added
 - Tags for recent stream
 
->>>>>>> 0d157d9... Tagging
 ## [1.3.4] - 2025-12-15
 
 ### Added
