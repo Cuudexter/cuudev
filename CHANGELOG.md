@@ -10,6 +10,12 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.8] - 2025-12-24
+
+### Added
+- New requested tag <i>Only Cuu</i> for Zatsus, Specials and other game-less streams
+- Tagged latest (unnumbered *cough* 11th) <i>Oshiete</i> stream
+
 ## [1.3.7] - 2025-12-22
 
 ### Added
