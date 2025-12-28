@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.10] - 2025-12-29
+
+### Added
+- ASMR RP collab with Roy
+
 ## [1.3.9] - 2025-12-28
 
 ### Added
