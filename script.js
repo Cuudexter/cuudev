@@ -297,7 +297,7 @@ async function getVideosFromPlaylist(playlistId) {
   }
 
   return details
-    .filter(v => v.snippet.liveBroadcastContent === "none" && v.liveStreamingDetails)
+    .filter(v => v.snippet.liveBroadcastContent === "none")
     .map(v => ({
       id: v.id,
       title: v.snippet.title,
