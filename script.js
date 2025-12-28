@@ -103,6 +103,36 @@ if (document.body.classList.contains("collab-page")) {
   window.IS_COLLAB_PAGE = false;
 }
 
+// Member stream helpers
+
+function getMemberOnlyIdsFromTags(tagMap) {
+  return Object.entries(tagMap)
+    .filter(([_, tags]) => String(tags.Member).trim() === "1")
+    .map(([id]) => id);
+}
+
+async function fetchVideosByIds(ids) {
+  const results = [];
+
+  for (let i = 0; i < ids.length; i += 50) {
+    const chunk = ids.slice(i, i + 50).join(",");
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${chunk}&key=${API_KEY}`;
+    const data = await ytFetch(url);
+    results.push(...(data.items || []));
+    await new Promise(r => setTimeout(r, 150));
+  }
+
+  return results.map(v => ({
+    id: v.id,
+    title: v.snippet.title,
+    date: v.snippet.publishedAt,
+    duration: v.contentDetails.duration,
+    durationMinutes: parseDurationToMinutes(v.contentDetails.duration),
+    thumbnail: v.snippet.thumbnails?.high?.url || "",
+  }));
+}
+
+
 // ==== CONDITIONAL GLOBAL STREAM DATA ====
 // Uses smart caching with playlist itemCount check
 window.allStreams = [];
@@ -149,7 +179,18 @@ window.fetchAllStreams = async function() {
         if (!playlistId) return [];
 
         const tagMap = loadStreamTags();
-        const fetched = await getVideosFromPlaylist(playlistId);
+        const most_fetched = await getVideosFromPlaylist(playlistId);
+
+        // 👇 NEW
+        const memberIds = getMemberOnlyIdsFromTags(tagMap);
+        const memberStreams = await fetchVideosByIds(memberIds);
+
+        // Merge + de-duplicate
+        const combinedMap = new Map();
+
+        [...most_fetched, ...memberStreams].forEach(s => combinedMap.set(s.id, s));
+
+        const fetched = [...combinedMap.values()];
 
         const streams = fetched.map(s => {
             const tags = tagMap[s.id] || {};
@@ -577,7 +618,18 @@ async function initMainPage() {
     }
 
     const tagMap = loadStreamTags();
-    const fetched = await getVideosFromPlaylist(playlistId);
+    const most_fetched = await getVideosFromPlaylist(playlistId);
+
+    // 👇 NEW
+    const memberIds = getMemberOnlyIdsFromTags(tagMap);
+    const memberStreams = await fetchVideosByIds(memberIds);
+
+    // Merge + de-duplicate
+    const combinedMap = new Map();
+
+    [...most_fetched, ...memberStreams].forEach(s => combinedMap.set(s.id, s));
+
+    const fetched = [...combinedMap.values()];
 
     const sample = Object.keys(Object.values(tagMap)[0] || {});
     const tagNames = sample.filter(t => !["stream_link","stream_title", "zatsu_start", "zatsuStartMinutes"].includes(t));
