@@ -338,7 +338,7 @@ async function getVideosFromPlaylist(playlistId) {
   }
 
   return details
-    .filter(v => v.snippet.liveBroadcastContent === "none")
+    .filter(v => v.snippet.liveBroadcastContent === "none" && v.liveStreamingDetails)
     .map(v => ({
       id: v.id,
       title: v.snippet.title,
@@ -514,12 +514,15 @@ function displayStreams(streams) {
       k => k && k !== "stream_link" && k !== "zatsu_start"
     );
 
-    const isVodPlus = streamHasTagValue(s, "Supercut");
+    const isSupercut = streamHasTagValue(s, "Supercut");
+    const isMember = streamHasTagValue(s, "Member");
 
     let statusLabel = "";
 
-    if (isVodPlus) {
+    if (isSupercut) {
       statusLabel = `<span class="vodplus-label">Supercut</span>`;
+    } else if (isMember) {
+      statusLabel = `<span class="member-label">Member</span>`;
     } else if (!isTagged) {
       statusLabel = `<span class="untagged-label">Untagged</span>`;
     }
@@ -527,7 +530,7 @@ function displayStreams(streams) {
     const displayedDuration = s.durationMinutes || 0;
 
     return `
-      <div class="video-card ${isVodPlus ? "vod-plus" : ""}">
+      <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
         <a href="https://youtu.be/${s.id}" target="_blank" class="thumb-link">
           <img src="${s.thumbnail}" alt="${escapeHtml(s.title)}" loading="lazy" />
         </a>
