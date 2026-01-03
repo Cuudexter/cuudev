@@ -10,7 +10,7 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
-## [1.3.12] - 2025-01-02
+## [1.3.12] - 2026-01-03
 
 ### Added
 - Undertale 5 tags
