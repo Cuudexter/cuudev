@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.17] - 2026-01-12
+
+### Added
+- Tags for Oshiete 14
+
 ## [1.3.16] - 2026-01-11
 
 ### Added
