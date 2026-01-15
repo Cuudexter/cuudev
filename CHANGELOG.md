@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.18] - 2026-01-15
+
+### Added
+- Tags for Fata Morgana extras
+
 ## [1.3.17] - 2026-01-12
 
 ### Added
