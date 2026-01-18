@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.19] - 2026-01-18
+
+### Added
+- Tags for Unbound & Member Gogh
+
 ## [1.3.18] - 2026-01-15
 
 ### Added
