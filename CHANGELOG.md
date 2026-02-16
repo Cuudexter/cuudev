@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.28] - 2026-02-16
+
+### Added
+- Tags for Oshiete 18 & Ash anime collab
+
 ## [1.3.27] - 2026-02-15
 
 ### Added
