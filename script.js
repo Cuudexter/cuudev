@@ -348,6 +348,54 @@ async function getVideosFromPlaylist(playlistId) {
       thumbnail: v.snippet.thumbnails?.high?.url || "",
     }));
 }
+//  === BILI STUFFS ===
+
+function loadBilibiliData() {
+  const bilis = document.getElementById("bilibili-csv");
+  if (!bilis) return {};
+
+  const lines = bilis.textContent.trim().split("\n").filter(l => l.trim());
+  const headers = lines[0].split(",").map(h => h.trim());
+  const rows = lines.slice(1);
+
+  const map = {};
+
+  for (const row of rows) {
+    const cols = row.split(",");
+    const record = {};
+    headers.forEach((h, i) => record[h] = (cols[i] || "").trim());
+
+    if (!record.bili_id) continue;
+
+    map[record.bili_id] = record;
+  }
+
+  return map;
+}
+//bili parser
+function parseHMSDuration(str) {
+  if (!str) return 0;
+  const parts = str.split(":").map(Number);
+  if (parts.length === 3) {
+    return parts[0] * 60 + parts[1] + parts[2] / 60;
+  }
+  if (parts.length === 2) {
+    return parts[0] + parts[1] / 60;
+  }
+  return 0;
+}
+
+function parseHMSDuration(str) {
+  if (!str) return 0;
+  const parts = str.split(":").map(Number);
+  if (parts.length === 3) {
+    return parts[0] * 60 + parts[1] + parts[2] / 60;
+  }
+  if (parts.length === 2) {
+    return parts[0] + parts[1] / 60;
+  }
+  return 0;
+}
 
 // ==== TAG HELPERS ====
 
@@ -378,11 +426,10 @@ function loadStreamTags() {
   return tagMap;
 }
 
-// validate 11-char link ID
+// allow both YouTube and Bilibili IDs
 function extractVideoId(value) {
   if (!value) return null;
-  const id = value.trim();
-  return /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : null;
+  return value.trim(); 
 }
 
 
@@ -531,7 +578,11 @@ function displayStreams(streams) {
 
     return `
       <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
-        <a href="https://youtu.be/${s.id}" target="_blank" class="thumb-link">
+        <a href="${s.platform === "bilibili"
+              ? `https://www.bilibili.com/video/${s.id}`
+              : `https://youtu.be/${s.id}`}"
+              target="_blank"
+              class="thumb-link">
           <img src="${s.thumbnail}" alt="${escapeHtml(s.title)}" loading="lazy" />
         </a>
         <div class="video-info">
@@ -621,16 +672,39 @@ async function initMainPage() {
     }
 
     const tagMap = loadStreamTags();
+    const biliMap = loadBilibiliData();
+    
     const most_fetched = await getVideosFromPlaylist(playlistId);
 
-    // 👇 NEW
     const memberIds = getMemberOnlyIdsFromTags(tagMap);
     const memberStreams = await fetchVideosByIds(memberIds);
 
-    // Merge + de-duplicate
+    // Detect Bilibili IDs from tagMap
+    const biliIds = Object.entries(tagMap)
+      .filter(([_, tags]) => String(tags.Bilibili).trim() === "1")
+      .map(([id]) => id);
+
+    // Build Bilibili stream objects
+    const biliStreams = biliIds.map(id => {
+      const meta = biliMap[id];
+      if (!meta) return null;
+
+      return {
+        id: id,
+        title: tagMap[id]?.stream_title || "Untitled",
+        date: meta.date,
+        duration: meta.duration,
+        durationMinutes: parseHMSDuration(meta.duration),
+        thumbnail: meta.thumb_url,
+        platform: "bilibili"
+      };
+    }).filter(Boolean);
+
+    // Merge everything
     const combinedMap = new Map();
 
-    [...most_fetched, ...memberStreams].forEach(s => combinedMap.set(s.id, s));
+    [...most_fetched, ...memberStreams].forEach(s => combinedMap.set(s.id, { ...s, platform: "youtube" }));
+    biliStreams.forEach(s => combinedMap.set(s.id, s));
 
     const fetched = [...combinedMap.values()];
 
