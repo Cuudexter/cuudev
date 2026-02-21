@@ -13,6 +13,7 @@ All notable changes to Cuudex will be shown here.
 ## [1.3.29] - 2026-02-21
 
 ### Added
+- First Bilibili vod
 - Tags for Guessrs stream
 
 ## [1.3.28] - 2026-02-16
