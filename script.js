@@ -579,11 +579,16 @@ function displayStreams(streams) {
     return `
       <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
         <a href="${s.platform === "bilibili"
-              ? `https://www.bilibili.com/video/${s.id}`
+              ? `https://www.bilibili.com/video/${s.id}/`
               : `https://youtu.be/${s.id}`}"
               target="_blank"
               class="thumb-link">
-          <img src="${s.thumbnail}" alt="${escapeHtml(s.title)}" loading="lazy" />
+          <img 
+            src="${s.thumbnail}" 
+            alt="${escapeHtml(s.title)}" 
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          />
         </a>
         <div class="video-info">
           <h3>${escapeHtml(s.title)}</h3>
@@ -691,7 +696,7 @@ async function initMainPage() {
 
       return {
         id: id,
-        title: tagMap[id]?.stream_title || "Untitled",
+        title: tagMap[id]?.stream_title.slice(1, -1) || "Untitled",
         date: meta.date,
         duration: meta.duration,
         durationMinutes: parseHMSDuration(meta.duration),
