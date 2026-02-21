@@ -563,6 +563,7 @@ function displayStreams(streams) {
 
     const isSupercut = streamHasTagValue(s, "Supercut");
     const isMember = streamHasTagValue(s, "Member");
+    const isBili = streamHasTagValue(s, "Bilibili");
 
     let statusLabel = "";
 
@@ -570,6 +571,8 @@ function displayStreams(streams) {
       statusLabel = `<span class="vodplus-label">Supercut</span>`;
     } else if (isMember) {
       statusLabel = `<span class="member-label">Member</span>`;
+    } else if (isBili) {
+      statusLabel = `<span class="bili-label">Bilibili</span>`;
     } else if (!isTagged) {
       statusLabel = `<span class="untagged-label">Untagged</span>`;
     }
