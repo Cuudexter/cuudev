@@ -582,7 +582,8 @@ function displayStreams(streams) {
               ? `https://www.bilibili.com/video/${s.id}/`
               : `https://youtu.be/${s.id}`}"
               target="_blank"
-              class="thumb-link">
+              class="thumb-link"
+              referrerpolicy="no-referrer">
           <img 
             src="${s.thumbnail}" 
             alt="${escapeHtml(s.title)}" 
