@@ -14,7 +14,6 @@ All notable changes to Cuudex will be shown here.
 
 ### Added
 - Tags for Voice Zoo & member
-- Translation for Bilibili stream title
 
 ## [1.3.29] - 2026-02-21
 
