@@ -10,16 +10,16 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
-## [1.3.30] - 2026-02-22
+## [1.3.29] - 2026-02-22
 
 ### Added
-- Tags for Voice Zoo & member
+- Tags for Oshiete 19
 
-## [1.3.29] - 2026-02-21
+## [1.3.29] - 2026-02-22
 
 ### Added
 - First Bilibili vod
-- Tags for Guessrs stream
+- Tags for Guessrs, Voice Zoo & Member VA
 
 ## [1.3.28] - 2026-02-16
 
