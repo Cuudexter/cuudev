@@ -10,7 +10,12 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
-## [1.3.29] - 2026-02-22
+## [1.3.31] - 2026-02-26
+
+### Added
+- Ash (Smash)sudan collab
+
+## [1.3.30] - 2026-02-23
 
 ### Added
 - Tags for Oshiete 19
