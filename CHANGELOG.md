@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.32] - 2026-03-01
+
+### Added
+- Tags for Resident Evil streams & Member Writing 5
+
 ## [1.3.31] - 2026-02-26
 
 ### Added
