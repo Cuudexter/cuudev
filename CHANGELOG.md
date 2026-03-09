@@ -10,10 +10,16 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.35] - 2026-03-09
+
+### Added
+- Tags for Nightreign (girl_dm + Marie collab), Guessrs, Member & Oshiete 21
+- New tag <i>Series</i> for sequential story streams
+
 ## [1.3.34] - 2026-03-05
 
 ### Added
-- Tags for Nightreign (Roy+Zanny collab)
+- Tags for Nightreign (Roy + Zanny collab)
 
 ## [1.3.33] - 2026-03-02
 
