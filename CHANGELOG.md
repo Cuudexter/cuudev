@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.36] - 2026-03-15
+
+### Added
+- Tags for Pokopia and Member Writing 7
+
 ## [1.3.35] - 2026-03-09
 
 ### Added
