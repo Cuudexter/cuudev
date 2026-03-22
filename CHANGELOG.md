@@ -10,6 +10,12 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.38] - 2026-03-22
+
+### Added
+- Tags for Slay the Spire, Crimson Desert, Pokopia & NU: Carnival
+- New tag <i>Turn-Based</i>
+
 ## [1.3.37] - 2026-03-16
 
 ### Added
