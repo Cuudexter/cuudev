@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.40] - 2026-04-06
+
+### Added
+- Tags for Ash birthday totsu + Smash collab, Oshietes 22 & 23, Break reminder and Tomodachi demo
+
 ## [1.3.39] - 2026-03-22
 
 ### Added
