@@ -10,6 +10,11 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
+## [1.3.41] - 2026-04-07
+
+### Added
+- Zanny birthday chat
+
 ## [1.3.40] - 2026-04-06
 
 ### Added
