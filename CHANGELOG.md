@@ -10,7 +10,7 @@ All notable changes to Cuudex will be shown here.
 - Fix Suggest page text in general
 - Add relevant mouseover info (tags?)
 
-## [1.3.44] - 2026-04-17
+## [1.3.44] - 2026-04-18
 
 ### Added
 - Tags for Pragmata
