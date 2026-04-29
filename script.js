@@ -488,6 +488,33 @@ function updateTagButtonStyle(btn, state) {
   if (state === "exclude") btn.classList.add("exclude");
 }
 
+// ==== STREAM TAG HOVER INFO ====
+
+document.addEventListener("click", (e) => {
+  const toggle = e.target.closest(".tags-toggle");
+  const clickedCard = e.target.closest(".video-card");
+
+  // Close other open cards
+  document.querySelectorAll(".video-card.tags-open").forEach(card => {
+    if (card !== clickedCard) {
+      card.classList.remove("tags-open");
+    }
+  });
+
+  // Toggle clicked one
+  if (toggle && clickedCard) {
+    clickedCard.classList.toggle("tags-open");
+    e.stopPropagation();
+  }
+
+  // Click outside closes all
+  if (!clickedCard) {
+    document.querySelectorAll(".video-card.tags-open").forEach(card => {
+      card.classList.remove("tags-open");
+    });
+  }
+});
+
 // ==== SLIDER LOGIC ====
 
 function setupDualSlider(options) {
@@ -589,8 +616,21 @@ function displayStreams(streams) {
 
     const displayedDuration = s.durationMinutes || 0;
 
+    const activeTags = getStreamTagList(s);
+
+    const tagOverlayHtml = activeTags.length
+      ? `
+        <div class="stream-tags-overlay">
+          ${activeTags.map(tag =>
+            `<span class="stream-tag">${escapeHtml(tag)}</span>`
+          ).join("")}
+        </div>
+      `
+      : "";
+
     return `
       <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
+  ${tagOverlayHtml}
         <a href="${s.platform === "bilibili"
               ? `https://www.bilibili.com/video/${s.id}/`
               : `https://youtu.be/${s.id}`}"
@@ -611,6 +651,7 @@ function displayStreams(streams) {
             ${statusLabel}
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
+          ${activeTags.length ? `<button class="tags-toggle" aria-label="Toggle tags">Tags</button>` : ""}
         </div>
       </div>
     `;
@@ -626,6 +667,15 @@ function streamHasTagValue(stream, tagName) {
   if (t === "") return false;
   if (!Number.isNaN(Number(t))) return Number(t) > 0;
   return true;
+}
+
+function getStreamTagList(stream) {
+  if (!stream.tags) return [];
+
+  return Object.keys(stream.tags).filter(tag =>
+    !["stream_link", "stream_title", "zatsu_start", "zatsuStartMinutes"].includes(tag) &&
+    streamHasTagValue(stream, tag)
+  );
 }
 
 function durationForStreamByMode(s) {

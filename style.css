@@ -144,6 +144,7 @@ select {
   border-radius: 0 0 12px 12px;
   overflow: hidden;
   transition: transform 160ms ease;
+  position: relative;
 }
 
 .video-card:hover {
@@ -176,6 +177,95 @@ select {
   font-weight: 600;
   flex-shrink: 0;
   line-height: 1.3;
+}
+
+/* Hidden tag info */
+
+.stream-tags-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 90px; /* above info panel */
+  max-height: 70%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  padding: 10px;
+
+  background: linear-gradient(
+    to top,
+    rgba(10,10,10,0.96),
+    rgba(10,10,10,0.78)
+  );
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+
+  z-index: 5;
+}
+
+.video-card:hover .stream-tags-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-card.tags-open .stream-tags-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.stream-tag {
+  font-size: 0.72rem;
+  padding: 3px 7px;
+
+  background: rgba(0, 238, 255, 0.12);
+  border: 1px solid rgba(0, 238, 255, 0.35);
+  color: var(--teal);
+
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.tags-toggle {
+  display: none;
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid #444;
+  color: #aaa;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .tags-toggle {
+    display: inline-block;
+  }
+
+  /* Disable hover reveal on touch devices */
+  .video-card:hover .stream-tags-overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .video-card.tags-open .stream-tags-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.stream-tags-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+
+.stream-tags-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
 }
 
 /* Tag label for untagged / supercut / member videos */
