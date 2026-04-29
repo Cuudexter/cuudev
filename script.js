@@ -113,14 +113,19 @@ function getMemberOnlyIdsFromTags(tagMap) {
 
 async function fetchVideosByIds(ids) {
   const results = [];
+  const fetchPromises = [];
 
   for (let i = 0; i < ids.length; i += 50) {
     const chunk = ids.slice(i, i + 50).join(",");
     const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${chunk}&key=${API_KEY}`;
-    const data = await ytFetch(url);
-    results.push(...(data.items || []));
-    await new Promise(r => setTimeout(r, 150));
+
+    fetchPromises.push(
+      ytFetch(url).then(data => data.items || [])
+    );
   }
+
+  const fetchedChunks = await Promise.all(fetchPromises);
+  results.push(...fetchedChunks.flat());
 
   return results.map(v => ({
     id: v.id,
@@ -328,14 +333,19 @@ async function getVideosFromPlaylist(playlistId) {
   const videoIds = videos.map(v => v.snippet.resourceId.videoId);
   const details = [];
 
+  const detailPromises = [];
+
   for (let i = 0; i < videoIds.length; i += 50) {
     const chunk = videoIds.slice(i, i + 50).join(",");
     const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,snippet&id=${chunk}&key=${API_KEY}`;
-    const detailsRes = await fetch(detailsUrl);
-    const detailsData = await detailsRes.json();
-    details.push(...(detailsData.items || []));
-    await new Promise(r => setTimeout(r, 150));
+
+    detailPromises.push(
+      ytFetch(detailsUrl).then(data => data.items || [])
+    );
   }
+
+  const detailResults = await Promise.all(detailPromises);
+  details.push(...detailResults.flat());
 
   return details
     .filter(v => v.snippet.liveBroadcastContent === "none" && v.liveStreamingDetails)
