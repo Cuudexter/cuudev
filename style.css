@@ -295,7 +295,13 @@ select {
 }
 
 .tags-toggle {
-  display: none !important;
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .tags-toggle {
+    display: inline-block;
+  }
 }
 
 @media (hover: none), (pointer: coarse) {

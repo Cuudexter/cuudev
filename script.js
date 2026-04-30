@@ -620,7 +620,7 @@ function displayStreams(streams) {
 
     const tagOverlayHtml = activeTags.length
       ? `
-        <div class="stream-tags-overlay">
+        <div class="stream-tags-side">
           ${activeTags.map(tag =>
             `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
           ).join("")}
@@ -657,6 +657,22 @@ function displayStreams(streams) {
     `;
   }).join("");
 
+  // Flip tag stacks inward for cards near right edge
+  requestAnimationFrame(() => {
+    const cards = [...grid.querySelectorAll(".video-card")];
+
+    cards.forEach(card => {
+      card.classList.remove("tag-flip");
+
+      const rect = card.getBoundingClientRect();
+      const spaceRight = window.innerWidth - rect.right;
+
+      // If near viewport edge, move tags to left side
+      if (spaceRight < 140) {
+        card.classList.add("tag-flip");
+      }
+    });
+  });
 }
 
 function streamHasTagValue(stream, tagName) {
