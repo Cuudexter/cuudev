@@ -142,7 +142,7 @@ select {
   flex-direction: column;
   background: var(--card);
   border-radius: 0 0 12px 12px;
-  overflow: hidden;
+  overflow: visible;
   transition: transform 160ms ease;
   position: relative;
 }
@@ -184,28 +184,27 @@ select {
 .stream-tags-side {
   position: absolute;
   top: 10px;
-  right: -22px;
+  right: -18px;
 
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-
-  /* vertical stack first */
-  align-content: flex-start;
-  align-items: flex-end;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(auto-fill, minmax(28px, max-content));
 
   gap: 6px;
 
   max-height: calc(100% - 20px);
-  max-width: 180px;
+  max-width: 220px;
+
+  justify-items: end;
+  align-content: start;
 
   opacity: 0;
   pointer-events: none;
 
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  transform: translateX(8px);
+  transform: translateX(10px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
 
-  z-index: 6;
+  z-index: 20;
 }
 
 /* Desktop hover */
@@ -215,10 +214,23 @@ select {
     pointer-events: auto;
     transform: translateX(0);
   }
+
+  .tags-toggle {
+    display: none !important;
+  }
 }
 
 /* Mobile toggle */
 @media (hover: none), (pointer: coarse) {
+  .tags-toggle {
+    display: inline-block !important;
+  }
+
+  .video-card:hover .stream-tags-side {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
   .video-card.tags-open .stream-tags-side {
     opacity: 1;
     pointer-events: auto;
@@ -272,9 +284,9 @@ select {
 
 .video-card.tag-flip .stream-tags-side {
   right: auto;
-  left: -22px;
-  align-items: flex-start;
-  transform: translateX(-8px);
+  left: -18px;
+  justify-items: start;
+  transform: translateX(-10px);
 }
 
 .video-card.tag-flip:hover .stream-tags-side,
@@ -302,12 +314,8 @@ select {
   }
 }
 
-.stream-tags-side {
-  direction: rtl;
-}
-
 .stream-tag-side {
-  direction: ltr;
+  max-width: 160px;
 }
 
 /* Tag label for untagged / supercut / member videos */
@@ -513,6 +521,7 @@ select {
 .thumb-link {
   display: block;
   overflow: hidden;
+  border-radius: 0;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
