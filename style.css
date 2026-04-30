@@ -190,12 +190,13 @@ select {
   grid-auto-flow: column;
   grid-template-rows: repeat(auto-fill, minmax(28px, max-content));
 
-  gap: 6px;
+  gap: 0;
+  margin-top: -1px;
 
   max-height: calc(100% - 20px);
   max-width: 220px;
 
-  justify-items: end;
+  justify-items: start;
   align-content: start;
 
   opacity: 0;
@@ -205,6 +206,10 @@ select {
   transition: opacity 0.18s ease, transform 0.18s ease;
 
   z-index: 20;
+}
+
+.video-card.tag-flip .stream-tags-side {
+  justify-items: end;
 }
 
 /* Desktop hover */

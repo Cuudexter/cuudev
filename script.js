@@ -503,8 +503,10 @@ document.addEventListener("click", (e) => {
 
   // Toggle clicked one
   if (toggle && clickedCard) {
-    clickedCard.classList.toggle("tags-open");
+    e.preventDefault();
     e.stopPropagation();
+    clickedCard.classList.toggle("tags-open");
+    return;
   }
 
   // Click outside closes all
@@ -513,6 +515,26 @@ document.addEventListener("click", (e) => {
       card.classList.remove("tags-open");
     });
   }
+});
+
+window.addEventListener("resize", () => {
+  const grid = document.getElementById("video-grid");
+  if (!grid) return;
+
+  requestAnimationFrame(() => {
+    const cards = [...grid.querySelectorAll(".video-card")];
+
+    cards.forEach(card => {
+      card.classList.remove("tag-flip");
+
+      const rect = card.getBoundingClientRect();
+      const spaceRight = window.innerWidth - rect.right;
+
+      if (spaceRight < 140) {
+        card.classList.add("tag-flip");
+      }
+    });
+  });
 });
 
 // ==== SLIDER LOGIC ====
