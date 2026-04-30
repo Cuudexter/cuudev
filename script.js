@@ -616,7 +616,7 @@ function displayStreams(streams) {
 
     const displayedDuration = s.durationMinutes || 0;
 
-    const activeTags = getStreamTagList(s);
+    const activeTags = getStreamTagList(s).sort((a, b) => a.localeCompare(b));;
 
     const tagOverlayHtml = activeTags.length
       ? `
