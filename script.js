@@ -622,7 +622,7 @@ function displayStreams(streams) {
       ? `
         <div class="stream-tags-overlay">
           ${activeTags.map(tag =>
-            `<span class="stream-tag">${escapeHtml(tag)}</span>`
+            `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
           ).join("")}
         </div>
       `
