@@ -718,7 +718,7 @@ function displayStreams(streams) {
             <div class="meta-center">
               ${activeTags.length
                 ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>
-                    <span>Stream Tags</span>
+                    <span>Tags</span>
                   </button>`
                 : ""}
 
