@@ -714,14 +714,19 @@ function displayStreams(streams) {
           <h3>${escapeHtml(s.title)}</h3>
           <div class="video-meta">
             <p class="video-date">${s.formattedDate}</p>
-            ${statusLabel}
+
+            <div class="meta-center">
+              ${activeTags.length
+                ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>
+                    <span>Stream Tags</span>
+                  </button>`
+                : ""}
+
+              ${statusLabel}
+            </div>
+
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
-          ${activeTags.length
-            ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>
-                  <span>Stream Tags</span>
-                </button>`
-            : ""}
         </div>
       </div>
     `;

@@ -243,11 +243,6 @@ select {
   }
 }
 
-.stream-tag-side {
-  width: fit-content;
-  align-self: flex-start;
-}
-
 .video-card.tag-flip .stream-tag-side {
   align-self: flex-end;
 }
@@ -343,6 +338,8 @@ select {
 
 /* ===== Individual tag ribbons ===== */
 .stream-tag-side {
+  width: fit-content;
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
@@ -381,26 +378,23 @@ select {
 /* Hidden by default; shown only on mobile media query */
 .tags-toggle {
   display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 
-  padding: 6px 10px;
+  flex: 0 0 auto;
+
+  padding: 4px 8px;
 
   background: rgba(34, 34, 34, 0.92);
   border: 1px solid #555;
   border-left: 3px solid var(--teal);
 
   color: #ccc;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
 
   transform: skewX(-20deg);
   cursor: pointer;
 
   box-shadow: 0 1px 4px rgba(0,0,0,0.35);
-
-  z-index: 20;
 }
 
 .tags-toggle span {
@@ -633,20 +627,30 @@ select {
 
 /* ===== VIDEO META (date / duration / untagged) ===== */
 .video-meta {
+  margin: 0;
+  white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   font-size: 0.85rem;
   color: var(--muted);
-  gap: 8px;
+
+  gap: 6px;
+  flex-wrap: wrap;
+
   padding-top: 6px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   margin-top: auto;
 }
 
-.video-meta p {
-  margin: 0;
-  white-space: nowrap;
+/* Center “slot” keeps button + label stable */
+.meta-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
 }
 
 /* ===== DURATION SLIDER SECTION ===== */
