@@ -696,7 +696,8 @@ function displayStreams(streams) {
 
     return `
       <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
-  ${tagOverlayHtml}
+        ${tagOverlayHtml}
+
         <a href="${s.platform === "bilibili"
               ? `https://www.bilibili.com/video/${s.id}/`
               : `https://youtu.be/${s.id}`}"
@@ -710,23 +711,19 @@ function displayStreams(streams) {
             referrerpolicy="no-referrer"
           />
         </a>
+
         <div class="video-info">
           <h3>${escapeHtml(s.title)}</h3>
+
           <div class="video-meta">
             <p class="video-date">${s.formattedDate}</p>
-
-            <div class="meta-center">
-              ${activeTags.length
-                ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>
-                    <span>Tags</span>
-                  </button>`
-                : ""}
-
-              ${statusLabel}
-            </div>
-
+            ${statusLabel}
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
+
+          ${activeTags.length
+            ? `<button class="tags-toggle mobile-tags-btn" type="button" data-tags='${JSON.stringify(activeTags)}'>Stream Tags</button>`
+            : ""}
         </div>
       </div>
     `;
