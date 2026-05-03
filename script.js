@@ -718,7 +718,9 @@ function displayStreams(streams) {
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
           ${activeTags.length
-            ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>Tags</button>`
+            ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>
+                  <span>Stream Tags</span>
+                </button>`
             : ""}
         </div>
       </div>

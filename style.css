@@ -381,6 +381,31 @@ select {
 /* Hidden by default; shown only on mobile media query */
 .tags-toggle {
   display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  padding: 6px 10px;
+
+  background: rgba(34, 34, 34, 0.92);
+  border: 1px solid #555;
+  border-left: 3px solid var(--teal);
+
+  color: #ccc;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  transform: skewX(-20deg);
+  cursor: pointer;
+
+  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+
+  z-index: 20;
+}
+
+.tags-toggle span {
+  display: inline-block;
+  transform: skewX(20deg);
 }
 
 /* Tag label for untagged / supercut / member videos */
