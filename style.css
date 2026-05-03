@@ -504,11 +504,12 @@ select {
 }
 
 /* ===== VIDEO META (date / duration / untagged) ===== */
-/* ===== VIDEO META (compact, single-line) ===== */
+
 .video-meta {
-  display: grid;
-  grid-template-columns: auto min-content auto;
+  position: relative;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 
   font-size: 0.85rem;
   color: var(--muted);
@@ -516,9 +517,6 @@ select {
   padding-top: 6px;
   border-top: 1px solid rgba(255,255,255,0.06);
   margin-top: auto;
-
-  column-gap: 8px;
-  min-width: 0;
 }
 
 /* Date locked left */
