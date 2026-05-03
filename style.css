@@ -250,7 +250,24 @@ select {
 /* ===== Mobile: toggle button only ===== */
 @media (hover: none), (pointer: coarse) {
   .tags-toggle {
-    display: inline-block !important;
+    display: inline-flex !important;
+
+    position: static;
+    top: auto;
+    right: auto;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 2px 8px;
+    min-height: 22px;
+    line-height: 1;
+
+    font-size: 0.68rem;
+
+    margin: 0;
+
+    flex-shrink: 0;
   }
 
   .stream-tags-side {
