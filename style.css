@@ -184,37 +184,51 @@ select {
 .stream-tags-side {
   position: absolute;
   top: 8px;
-  right: 8px;
+
+  /* Start just behind right edge */
+  left: calc(100% - 14px);
 
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+
+  /* Fill vertically first */
   align-content: flex-start;
+  align-items: flex-start;
 
   max-height: calc(100% - 16px);
-  max-width: calc(100% - 16px);
+
+  /* Let columns size naturally */
+  width: max-content;
+  max-width: 320px;
 
   gap: 0;
 
   opacity: 0;
   pointer-events: none;
 
-  transform: translateX(8px);
+  /* Slightly hidden behind card until shown */
+  transform: translateX(-10px);
+
   transition:
-    opacity 0.16s ease,
-    transform 0.16s ease;
+    opacity 0.14s ease,
+    transform 0.14s ease;
 
-  z-index: 25;
+  z-index: 30;
 }
 
-/* Flip inward for right-edge cards */
+/* Flip to left side for rightmost cards */
 .video-card.tag-flip .stream-tags-side {
-  right: auto;
-  left: 8px;
-  transform: translateX(-8px);
+  left: auto;
+  right: calc(100% - 14px);
+
+  align-content: flex-start;
+  align-items: flex-end;
+
+  transform: translateX(10px);
 }
 
-/* Desktop hover */
+/* ===== Desktop: hover only ===== */
 @media (hover: hover) and (pointer: fine) {
   .video-card:hover .stream-tags-side {
     opacity: 1;
@@ -223,19 +237,19 @@ select {
   }
 
   .tags-toggle {
-    display: none;
+    display: none !important;
   }
 }
 
-/* Mobile toggle only */
+/* ===== Mobile: toggle button only ===== */
 @media (hover: none), (pointer: coarse) {
   .tags-toggle {
-    display: inline-block;
+    display: inline-block !important;
   }
 
   .video-card:hover .stream-tags-side {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   .video-card.tags-open .stream-tags-side {
@@ -245,20 +259,23 @@ select {
   }
 }
 
-/* Individual tag ribbons */
+/* ===== Individual tag ribbons ===== */
 .stream-tag-side {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
 
-  width: fit-content;
-  max-width: 160px;
+  width: max-content;
+  max-width: 220px;
 
   min-height: 28px;
   padding: 0 12px;
+
+  /* No vertical gaps */
   margin-top: -1px;
 
-  background: rgba(34, 34, 34, 0.96);
+  background: rgba(34, 34, 34, 0.97);
+
   border: 1px solid #555;
   border-left: 3px solid var(--teal);
 
@@ -273,12 +290,13 @@ select {
     0 1px 4px rgba(0,0,0,0.35);
 }
 
+/* Straight text */
 .stream-tag-side > span {
   display: inline-block;
   transform: skewX(20deg);
 }
 
-/* Default hidden */
+/* Hidden by default; shown only on mobile media query */
 .tags-toggle {
   display: none;
 }
