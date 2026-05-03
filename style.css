@@ -145,7 +145,6 @@ select {
   overflow: visible;
   transition: transform 160ms ease;
   position: relative;
-  z-index: 1;
 }
 
 .video-card:hover {
@@ -188,20 +187,6 @@ select {
 }
 
 /* Hidden tag info */
-/* ===== VIDEO CARD (RESTORED CLEAN BASE) ===== */
-.video-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--card);
-  border-radius: 0 0 12px 12px;
-  overflow: hidden; /* IMPORTANT: restores clean edge */
-  transition: transform 160ms ease;
-  position: relative;
-}
-
-.video-card:hover {
-  transform: scale(1.02);
-}
 
 /* ===== TAG OVERLAY (DESKTOP) ===== */
 .stream-tags-side {
@@ -233,18 +218,20 @@ select {
 .video-card.tag-flip .stream-tags-side {
   left: auto;
   right: calc(100% - 14px);
-  transform: translateX(10px);
+  transform: translateX(-10px);
+  align-items: flex-end;
 }
 
 /* ===== TAG STYLE (UNCHANGED VISUALS) ===== */
 .stream-tag-side {
   display: inline-flex;
   align-items: center;
-  width: max-content;
-  max-width: 220px;
 
-  min-height: 28px;
+  max-width: 220px;
+  min-width: 0;
+
   padding: 0 12px;
+  min-height: 28px;
 
   margin-top: -1px;
 
