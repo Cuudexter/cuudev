@@ -494,26 +494,70 @@ document.addEventListener("click", (e) => {
   const toggle = e.target.closest(".tags-toggle");
   const clickedCard = e.target.closest(".video-card");
 
-  // Close other open cards
+  const sheet = document.getElementById("mobileTagSheet");
+  const list = document.getElementById("mobileTagList");
+
+  /* ===== MOBILE SHEET CLOSE ===== */
+  if (
+    e.target.closest(".mobile-tag-backdrop") ||
+    e.target.closest("#closeMobileTags")
+  ) {
+    if (sheet) {
+      sheet.classList.remove("open");
+    }
+    e.stopPropagation();
+    return;
+  }
+
+  /* ===== Close other desktop cards ===== */
   document.querySelectorAll(".video-card.tags-open").forEach(card => {
     if (card !== clickedCard) {
       card.classList.remove("tags-open");
     }
   });
 
-  // Toggle clicked one
-  if (toggle && clickedCard) {
-    e.preventDefault();
-    e.stopPropagation();
-    clickedCard.classList.toggle("tags-open");
-    return;
+  /* ===== TAG BUTTON CLICK ===== */
+  if (toggle) {
+    const isMobile = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+    if (isMobile) {
+      let tags = [];
+
+      try {
+        tags = JSON.parse(toggle.dataset.tags || "[]");
+      } catch {}
+
+      if (list) {
+        list.innerHTML = tags.map(tag =>
+          `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
+        ).join("");
+      }
+
+      if (sheet) {
+        sheet.classList.add("open");
+      }
+
+      e.stopPropagation();
+      return;
+    }
+
+    /* Desktop optional click toggle */
+    if (clickedCard) {
+      clickedCard.classList.toggle("tags-open");
+      e.stopPropagation();
+      return;
+    }
   }
 
-  // Click outside closes all
+  /* ===== Click outside closes everything ===== */
   if (!clickedCard) {
     document.querySelectorAll(".video-card.tags-open").forEach(card => {
       card.classList.remove("tags-open");
     });
+
+    if (sheet && !e.target.closest(".mobile-tag-panel")) {
+      sheet.classList.remove("open");
+    }
   }
 });
 
@@ -673,7 +717,9 @@ function displayStreams(streams) {
             ${statusLabel}
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
-          ${activeTags.length ? `<button class="tags-toggle" aria-label="Toggle tags">Tags</button>` : ""}
+          ${activeTags.length
+            ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}'>Tags</button>`
+            : ""}
         </div>
       </div>
     `;

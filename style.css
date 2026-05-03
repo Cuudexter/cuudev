@@ -145,10 +145,16 @@ select {
   overflow: visible;
   transition: transform 160ms ease;
   position: relative;
+  z-index: 1;
 }
 
 .video-card:hover {
   transform: scale(1.02);
+}
+
+.video-card:hover,
+.video-card.tags-open {
+  z-index: 100;
 }
 
 /* Thumbnail */
@@ -157,6 +163,8 @@ select {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 /* Video info below thumbnail */
@@ -223,7 +231,7 @@ select {
   right: calc(100% - 14px);
 
   align-content: flex-start;
-  align-items: flex-end;
+  align-items: flex-start;
 
   transform: translateX(10px);
 }
@@ -247,16 +255,87 @@ select {
     display: inline-block !important;
   }
 
-  .video-card:hover .stream-tags-side {
-    opacity: 0 !important;
-    pointer-events: none !important;
+  .stream-tags-side {
+    display: none !important;
   }
+}
 
-  .video-card.tags-open .stream-tags-side {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
-  }
+/* ===== Mobile Tag Sheet ===== */
+.mobile-tag-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.mobile-tag-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mobile-tag-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #1c1c1c;
+  border-top: 1px solid #444;
+
+  border-radius: 16px 16px 0 0;
+
+  padding: 1rem;
+
+  transform: translateY(100%);
+  transition: transform 0.22s ease;
+
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.mobile-tag-sheet.open {
+  pointer-events: auto;
+}
+
+.mobile-tag-sheet.open .mobile-tag-backdrop {
+  opacity: 1;
+}
+
+.mobile-tag-sheet.open .mobile-tag-panel {
+  transform: translateY(0);
+}
+
+.mobile-tag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1rem;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+#closeMobileTags {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.mobile-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.mobile-tag-list .stream-tag-side {
+  margin-top: 0;
 }
 
 /* ===== Individual tag ribbons ===== */
