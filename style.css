@@ -626,31 +626,66 @@ select {
 }
 
 /* ===== VIDEO META (date / duration / untagged) ===== */
+/* ===== VIDEO META (compact, single-line) ===== */
 .video-meta {
-  margin: 0;
-  white-space: nowrap;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
 
   font-size: 0.85rem;
   color: var(--muted);
 
-  gap: 6px;
-  flex-wrap: wrap;
-
   padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255,255,255,0.06);
   margin-top: auto;
+
+  column-gap: 8px;
+  min-width: 0;
 }
 
-/* Center “slot” keeps button + label stable */
+/* Date locked left */
+.video-date {
+  justify-self: start;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Duration locked right */
+.video-duration {
+  justify-self: end;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Middle slot */
 .meta-center {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex: 1;
   justify-content: center;
+
+  gap: 4px;
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+/* Prevent giant button stretching */
+.meta-center .tags-toggle {
+  flex: 0 0 auto;
+}
+
+/* Label can shrink gracefully */
+.meta-center .untagged-label,
+.meta-center .vodplus-label,
+.meta-center .member-label,
+.meta-center .bili-label {
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+/* Prevent accidental paragraph spacing */
+.video-meta p {
+  margin: 0;
 }
 
 /* ===== DURATION SLIDER SECTION ===== */
