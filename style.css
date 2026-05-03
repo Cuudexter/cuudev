@@ -507,7 +507,7 @@ select {
 /* ===== VIDEO META (compact, single-line) ===== */
 .video-meta {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto min-content auto;
   align-items: center;
 
   font-size: 0.85rem;
