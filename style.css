@@ -183,33 +183,35 @@ select {
 
 .stream-tags-side {
   position: absolute;
-  top: 10px;
-  right: -18px;
+  top: 8px;
+  right: 8px;
 
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(auto-fill, minmax(28px, max-content));
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+
+  max-height: calc(100% - 16px);
+  max-width: calc(100% - 16px);
 
   gap: 0;
-  margin-top: -1px;
-
-  max-height: calc(100% - 20px);
-  max-width: 220px;
-
-  justify-items: start;
-  align-content: start;
 
   opacity: 0;
   pointer-events: none;
 
-  transform: translateX(10px);
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transform: translateX(8px);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
 
-  z-index: 20;
+  z-index: 25;
 }
 
+/* Flip inward for right-edge cards */
 .video-card.tag-flip .stream-tags-side {
-  justify-items: end;
+  right: auto;
+  left: 8px;
+  transform: translateX(-8px);
 }
 
 /* Desktop hover */
@@ -221,94 +223,11 @@ select {
   }
 
   .tags-toggle {
-    display: none !important;
+    display: none;
   }
 }
 
-/* Mobile toggle */
-@media (hover: none), (pointer: coarse) {
-  .tags-toggle {
-    display: inline-block !important;
-  }
-
-  .video-card:hover .stream-tags-side {
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  .video-card.tags-open .stream-tags-side {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
-  }
-}
-
-.stream-tag-side {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 28px;
-  padding: 0 12px;
-
-  background: #222;
-  border: 1px solid #555;
-  color: #ccc;
-
-  font-size: 0.78rem;
-  white-space: nowrap;
-
-  transform: skewX(-20deg);
-  box-sizing: border-box;
-
-  box-shadow:
-    0 1px 4px rgba(0,0,0,0.35);
-}
-
-.stream-tag-side::before {
-  content: "";
-}
-
-.stream-tag-side {
-  border-left: 3px solid var(--teal);
-}
-
-.stream-tag-side {
-  transform: skewX(-20deg);
-}
-
-.stream-tag-side > span {
-  display: inline-block;
-  transform: skewX(20deg);
-}
-
-.stream-tag-side > span {
-  display: inline-block;
-  transform: skewX(20deg);
-}
-
-.video-card.tag-flip .stream-tags-side {
-  right: auto;
-  left: -18px;
-  justify-items: start;
-  transform: translateX(-10px);
-}
-
-.video-card.tag-flip:hover .stream-tags-side,
-.video-card.tag-flip.tags-open .stream-tags-side {
-  transform: translateX(0);
-}
-
-.tags-toggle {
-  display: none;
-}
-
-@media (hover: none), (pointer: coarse) {
-  .tags-toggle {
-    display: inline-block;
-  }
-}
-
+/* Mobile toggle only */
 @media (hover: none), (pointer: coarse) {
   .tags-toggle {
     display: inline-block;
@@ -322,11 +241,46 @@ select {
   .video-card.tags-open .stream-tags-side {
     opacity: 1;
     pointer-events: auto;
+    transform: translateX(0);
   }
 }
 
+/* Individual tag ribbons */
 .stream-tag-side {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: fit-content;
   max-width: 160px;
+
+  min-height: 28px;
+  padding: 0 12px;
+  margin-top: -1px;
+
+  background: rgba(34, 34, 34, 0.96);
+  border: 1px solid #555;
+  border-left: 3px solid var(--teal);
+
+  color: #ccc;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  box-sizing: border-box;
+
+  transform: skewX(-20deg);
+
+  box-shadow:
+    0 1px 4px rgba(0,0,0,0.35);
+}
+
+.stream-tag-side > span {
+  display: inline-block;
+  transform: skewX(20deg);
+}
+
+/* Default hidden */
+.tags-toggle {
+  display: none;
 }
 
 /* Tag label for untagged / supercut / member videos */
