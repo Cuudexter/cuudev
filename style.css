@@ -176,7 +176,6 @@ select {
   padding: 0.8rem 1rem;
   min-height: 90px; /* ensures room for title + meta */
   background: var(--card);
-  border-radius: 0 0 4px 4px;
 }
 
 .video-info h3 {
@@ -194,36 +193,30 @@ select {
   position: absolute;
   top: 8px;
 
-  /* Start just behind right edge */
   left: calc(100% - 14px);
 
+  /* KEY CHANGE: true vertical stack only */
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
 
-  /* Fill vertically first */
-  align-content: flex-start;
-  align-items: flex-start;
+  /* IMPORTANT: no wrapping = no fake columns */
+  flex-wrap: nowrap;
+
+  /* tight stacking */
+  gap: 0;
 
   max-height: calc(100% - 16px);
-
-  /* Let columns size naturally */
-  width: max-content;
-  max-width: 320px;
-
-  gap: 0;
 
   opacity: 0;
   pointer-events: none;
 
-  /* Slightly hidden behind card until shown */
   transform: translateX(-10px);
-
-  transition:
-    opacity 0.14s ease,
-    transform 0.14s ease;
+  transition: opacity 0.14s ease, transform 0.14s ease;
 
   z-index: 30;
+
+  /* prevents weird stretching */
+  align-items: flex-start;
 }
 
 /* Flip to left side for rightmost cards */
@@ -231,10 +224,10 @@ select {
   left: auto;
   right: calc(100% - 14px);
 
-  align-content: flex-start;
-  align-items: flex-start;
-
   transform: translateX(10px);
+
+  /* mirror alignment for right-side popout */
+  align-items: flex-end;
 }
 
 /* ===== Desktop: hover only ===== */
@@ -248,6 +241,15 @@ select {
   .tags-toggle {
     display: none !important;
   }
+}
+
+.stream-tag-side {
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.video-card.tag-flip .stream-tag-side {
+  align-self: flex-end;
 }
 
 /* ===== Mobile: toggle button only ===== */
