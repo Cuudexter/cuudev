@@ -520,21 +520,24 @@ document.addEventListener("click", (e) => {
   if (toggle) {
     const isMobile = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-    if (isMobile) {
-      let tags = [];
-      let title = toggle.dataset.title || "";
+      if (isMobile) {
+        let tags = [];
+        let title = "";
 
-      try {
-        tags = JSON.parse(toggle.dataset.tags || "[]");
-      } catch {}
+        try {
+          tags = JSON.parse(decodeURIComponent(toggle.dataset.tags || "[]"));
+        } catch {}
 
-      if (list) {
-        list.innerHTML = tags.map(tag =>
-          `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
-        ).join("");
-      }
+        try {
+          title = decodeURIComponent(toggle.dataset.title || "");
+        } catch {}
 
-      // 👉 ADD THIS BLOCK HERE
+        if (list) {
+          list.innerHTML = tags.map(tag =>
+            `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
+          ).join("");
+        }
+
       const titleEl = document.getElementById("mobileTagTitle");
 
       if (titleEl) {
@@ -727,8 +730,14 @@ function displayStreams(streams) {
           </div>
 
           ${activeTags.length
-            ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}
-            data-title="${escapeHtml(s.title)}"'>Stream Tags</button>`
+            ? `<button 
+                  class="tags-toggle" 
+                  type="button"
+                  data-tags="${encodeURIComponent(JSON.stringify(activeTags))}"
+                  data-title="${encodeURIComponent(s.title)}"
+              >
+                  <span>Stream Tags</span>
+              </button>`
             : ""}
         </div>
       </div>
