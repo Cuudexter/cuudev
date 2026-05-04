@@ -257,26 +257,46 @@ select {
   display: inline-block;
 }
 
+.tags-toggle {
+  display: none !important;
+}
+
 /* ===== MOBILE ONLY (CLEAN + SINGLE SOURCE OF TRUTH) ===== */
 @media (hover: none), (pointer: coarse) {
 
-  .stream-tags-side {
-    display: none !important;
-  }
-
   .tags-toggle {
     display: inline-flex !important;
-    padding: 4px 8px;
-    font-size: 0.72rem;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2px 8px;
+    min-height: 22px;
+
+    font-size: 0.7rem;
+    font-weight: 600;
+
     background: rgba(34, 34, 34, 0.92);
     border: 1px solid #555;
     border-left: 3px solid var(--teal);
+
+    color: #ccc;
+
     transform: skewX(-20deg);
+    cursor: pointer;
+
+    box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+
+    flex: 0 0 auto;
   }
 
   .tags-toggle span {
-    transform: skewX(20deg);
     display: inline-block;
+    transform: skewX(20deg);
+  }
+  
+  .tags-toggle:active {
+    background: rgba(34, 34, 34, 1);
+    transform: skewX(-20deg) scale(0.97);
   }
 }
 
