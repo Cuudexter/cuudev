@@ -206,6 +206,7 @@ select {
   transition: opacity 0.14s ease, transform 0.14s ease;
 
   z-index: 30;
+  align-items: flex-start;
 }
 
 .video-card:hover .stream-tags-side {
