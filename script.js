@@ -540,13 +540,7 @@ document.addEventListener("click", (e) => {
 
       const titleEl = document.getElementById("mobileTagTitle");
 
-      if (titleEl) {
-        const shortTitle = title.length > 40
-          ? title.slice(0, 40) + "…"
-          : title;
-
-        titleEl.textContent = `Tags for ${shortTitle}`;
-      }
+      titleEl.textContent = `Tags for ${title}`;
 
       if (sheet) {
         sheet.classList.add("open");

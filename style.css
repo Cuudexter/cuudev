@@ -367,6 +367,14 @@ select {
   font-weight: 700;
 }
 
+#mobileTagTitle {
+  flex: 1;
+  min-width: 0;              /* critical */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Close button */
 #closeMobileTags {
   background: transparent;
@@ -374,6 +382,7 @@ select {
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
+  flex: 0 0 auto;
 }
 
 /* Tag layout inside sheet */
