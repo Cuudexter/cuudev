@@ -522,6 +522,7 @@ document.addEventListener("click", (e) => {
 
     if (isMobile) {
       let tags = [];
+      let title = toggle.dataset.title || "";
 
       try {
         tags = JSON.parse(toggle.dataset.tags || "[]");
@@ -533,17 +534,21 @@ document.addEventListener("click", (e) => {
         ).join("");
       }
 
+      // 👉 ADD THIS BLOCK HERE
+      const titleEl = document.getElementById("mobileTagTitle");
+
+      if (titleEl) {
+        const shortTitle = title.length > 40
+          ? title.slice(0, 40) + "…"
+          : title;
+
+        titleEl.textContent = `Tags for ${shortTitle}`;
+      }
+
       if (sheet) {
         sheet.classList.add("open");
       }
 
-      e.stopPropagation();
-      return;
-    }
-
-    /* Desktop optional click toggle */
-    if (clickedCard) {
-      clickedCard.classList.toggle("tags-open");
       e.stopPropagation();
       return;
     }
@@ -722,7 +727,8 @@ function displayStreams(streams) {
           </div>
 
           ${activeTags.length
-            ? `<button class="tags-toggle mobile-tags-btn" type="button" data-tags='${JSON.stringify(activeTags)}'>Stream Tags</button>`
+            ? `<button class="tags-toggle" type="button" data-tags='${JSON.stringify(activeTags)}
+            data-title="${escapeHtml(s.title)}"'>Stream Tags</button>`
             : ""}
         </div>
       </div>
