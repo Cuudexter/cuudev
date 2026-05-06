@@ -8,7 +8,14 @@ All notable changes to Cuudex will be shown here.
 - Add Live stream and Waiting Room links (my amazing excuse is that I have no data to work with!)
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
-- Add relevant mouseover info (tags?)
+
+## [1.4.0] - 2026-05-06
+
+### Added
+- Relevant mouseover info: tags & their descriptions
+
+### Fixed
+- Better initial load speed
 
 ## [1.3.44] - 2026-04-18
 

@@ -551,10 +551,11 @@ select {
 
   padding: 6px 10px;
 
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: #fff;
 
-  background: rgba(0, 162, 255, 0.85);
+  background: #00a2ff;
   border: 1px solid #00a2ff;
   border-left: 3px solid #00a2ff;
 
@@ -567,18 +568,6 @@ select {
   box-shadow: 0 3px 10px rgba(0,0,0,0.4);
 }
 
-/* unskew text */
-.tag-tooltip::before {
-  content: attr(data-text);
-}
-
-/* OR better: wrap content */
-.tag-tooltip span {
-  display: inline-block;
-  transform: skewX(20deg);
-}
-
-/* visible state */
 .tag-tooltip.visible {
   opacity: 1;
   transform: skewX(-20deg) translateY(0);
