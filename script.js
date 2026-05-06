@@ -445,6 +445,17 @@ function extractVideoId(value) {
 
 // ==== TAG BUTTONS ====
 
+let TAG_DESCRIPTIONS = {};
+
+const tagDescScript = document.getElementById("tag-desc");
+if (tagDescScript) {
+  try {
+    TAG_DESCRIPTIONS = JSON.parse(tagDescScript.textContent);
+  } catch (e) {
+    console.warn("Failed to parse tag descriptions");
+  }
+}
+
 let tagStates = {}; // three-state per tag
 
 function createTagButtons(tagNames) {
@@ -463,6 +474,9 @@ tagNames.forEach(tag => {
   const btn = document.createElement("button");
   btn.className = "tag-btn";
   btn.innerHTML = `<span>${tag}</span>`;
+  if (TAG_DESCRIPTIONS[tag]) {
+  btn.dataset.desc = TAG_DESCRIPTIONS[tag];
+  }
   btn.addEventListener("click", () => cycleTagState(tag, btn));
   updateTagButtonStyle(btn, "none");
 
@@ -1016,6 +1030,53 @@ if (!window.IS_COLLAB_PAGE && !window.location.pathname.includes("suggest")) {
 // Suggest Tag button
 document.getElementById("suggestTagBtn")?.addEventListener("click", () => {
   window.location.href = "suggest.html";
+});
+
+// === TAG TOOLTIP ===
+const tooltip = document.createElement("div");
+tooltip.className = "tag-tooltip";
+document.body.appendChild(tooltip);
+
+let tooltipTimeout;
+
+document.addEventListener("mouseover", (e) => {
+  const btn = e.target.closest(".tag-btn");
+  if (!btn || !btn.dataset.desc) return;
+
+  tooltip.textContent = btn.dataset.desc;
+  tooltip.classList.add("visible");
+
+  const rect = btn.getBoundingClientRect();
+
+  tooltip.style.left = rect.right + 8 + "px";
+  tooltip.style.top = rect.bottom + "px";
+});
+
+document.addEventListener("mouseout", (e) => {
+  if (e.target.closest(".tag-btn")) {
+    tooltip.classList.remove("visible");
+  }
+});
+
+/* Mobile: long press */
+document.addEventListener("touchstart", (e) => {
+  const btn = e.target.closest(".tag-btn");
+  if (!btn || !btn.dataset.desc) return;
+
+  tooltipTimeout = setTimeout(() => {
+    tooltip.textContent = btn.dataset.desc;
+    tooltip.classList.add("visible");
+
+    const rect = btn.getBoundingClientRect();
+
+    tooltip.style.left = rect.left + "px";
+    tooltip.style.top = rect.bottom + 10 + "px";
+  }, 500);
+});
+
+document.addEventListener("touchend", () => {
+  clearTimeout(tooltipTimeout);
+  tooltip.classList.remove("visible");
 });
 
 // === TAG COLLAPSE TOGGLE (3-STAGE) ===
