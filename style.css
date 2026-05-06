@@ -547,8 +547,6 @@ select {
 
   z-index: 9999;
 
-  max-width: 260px;
-
   padding: 6px 10px;
 
   font-size: 0.85rem;
@@ -574,6 +572,17 @@ select {
 .tag-tooltip.visible {
   opacity: 1;
   transform: skewX(-20deg) translateY(0);
+}
+
+.tag-tooltip {
+  white-space: nowrap;
+  width: max-content;
+  max-width: 340px;
+}
+
+.tag-tooltip span {
+  white-space: nowrap;
+  width: max-content;
 }
 
 /* Protecting tag button corners */
