@@ -16,6 +16,7 @@ All notable changes to Cuudex will be shown here.
 
 ### Fixed
 - Better initial load speed
+- GeoGuessr & VoiceZoo tags
 
 ## [1.3.44] - 2026-04-18
 
