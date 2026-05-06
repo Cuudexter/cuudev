@@ -553,9 +553,9 @@ select {
 
   font-size: 0.85rem;
   font-weight: 700;
-  color: #fff;
+  color: #1c1c1c;;
 
-  background: #00a2ff;
+  background: rgba(0, 162, 255, 0.8);
   border: 1px solid #00a2ff;
   border-left: 3px solid #00a2ff;
 
@@ -566,6 +566,10 @@ select {
   transition: opacity 0.12s ease, transform 0.12s ease;
 
   box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.tag-tooltip::before {
+  content: attr(data-text);
 }
 
 .tag-tooltip.visible {
