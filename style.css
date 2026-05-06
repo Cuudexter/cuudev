@@ -555,9 +555,7 @@ select {
   font-weight: 700;
   color: #1c1c1c;;
 
-  background: rgba(0, 162, 255, 0.8);
-  border: 1px solid #00a2ff;
-  border-left: 3px solid #00a2ff;
+  background: #00a2ff;
 
   transform: skewX(-20deg) translateY(6px);
   opacity: 0;
@@ -568,8 +566,9 @@ select {
   box-shadow: 0 3px 10px rgba(0,0,0,0.4);
 }
 
-.tag-tooltip::before {
-  content: attr(data-text);
+.tag-tooltip span {
+  display: inline-block;
+  transform: skewX(20deg);
 }
 
 .tag-tooltip.visible {
