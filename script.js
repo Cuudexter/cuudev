@@ -534,7 +534,7 @@ document.addEventListener("click", (e) => {
 
         if (list) {
           list.innerHTML = tags.map(tag =>
-            `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
+            `<span class="overlay-tag"><span>${escapeHtml(tag)}</span></span>`
           ).join("");
         }
 
@@ -688,9 +688,9 @@ function displayStreams(streams) {
 
     const tagOverlayHtml = activeTags.length
       ? `
-        <div class="stream-tags-side">
+        <div class="overlay-tag-container">
           ${activeTags.map(tag =>
-            `<span class="stream-tag-side"><span>${escapeHtml(tag)}</span></span>`
+            `<span class="overlay-tag"><span>${escapeHtml(tag)}</span></span>`
           ).join("")}
         </div>
       `

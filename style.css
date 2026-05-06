@@ -190,7 +190,7 @@ select {
 /* Hidden tag info */
 
 /* ===== TAG OVERLAY (DESKTOP) ===== */
-.stream-tags-side {
+.overlay-tag-container {
   position: absolute;
   top: 8px;
   left: calc(100% - 14px);
@@ -210,22 +210,22 @@ select {
   align-items: flex-start;
 }
 
-.video-card:hover .stream-tags-side {
+.video-card:hover .overlay-tag-container {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0);
 }
 
 /* flip right-side cards */
-.video-card.tag-flip .stream-tags-side {
+.video-card.tag-flip .overlay-tag-container {
   left: auto;
   right: calc(100% - 14px);
   transform: translateX(-10px);
   align-items: flex-end;
 }
 
-/* ===== TAG STYLE (UNCHANGED VISUALS) ===== */
-.stream-tag-side {
+/* ===== TAG STYLE  ===== */
+.overlay-tag {
   display: inline-flex;
   align-items: center;
 
@@ -253,7 +253,7 @@ select {
   box-shadow: 0 1px 4px rgba(0,0,0,0.35);
 }
 
-.stream-tag-side > span {
+.overlay-tag > span {
   transform: skewX(20deg);
   display: inline-block;
 }
@@ -265,7 +265,7 @@ select {
 /* ===== MOBILE ONLY (CLEAN + SINGLE SOURCE OF TRUTH) ===== */
 @media (hover: none), (pointer: coarse) {
 
-  .stream-tags-side {
+  .overlay-tag-container {
     display: none !important;
   }
 
@@ -393,7 +393,7 @@ select {
 }
 
 /* Let tags expand properly on mobile */
-.mobile-tag-list .stream-tag-side {
+.mobile-tag-list .overlay-tag {
   max-width: 100%;
   white-space: normal;
 }
