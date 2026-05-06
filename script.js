@@ -1043,13 +1043,8 @@ document.addEventListener("mouseover", (e) => {
   const btn = e.target.closest(".tag-btn");
   if (!btn || !btn.dataset.desc) return;
 
-  tooltip.textContent = btn.dataset.desc;
+  tooltip.innerHTML = `<span>${btn.dataset.desc}</span>`;
   tooltip.classList.add("visible");
-
-  const rect = btn.getBoundingClientRect();
-
-  tooltip.style.left = rect.right + 8 + "px";
-  tooltip.style.top = rect.bottom + "px";
 });
 
 document.addEventListener("mouseout", (e) => {
@@ -1064,13 +1059,8 @@ document.addEventListener("touchstart", (e) => {
   if (!btn || !btn.dataset.desc) return;
 
   tooltipTimeout = setTimeout(() => {
-    tooltip.textContent = btn.dataset.desc;
+    tooltip.innerHTML = `<span>${btn.dataset.desc}</span>`;
     tooltip.classList.add("visible");
-
-    const rect = btn.getBoundingClientRect();
-
-    tooltip.style.left = rect.left + "px";
-    tooltip.style.top = rect.bottom + 10 + "px";
   }, 500);
 });
 

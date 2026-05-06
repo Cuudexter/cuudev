@@ -542,32 +542,46 @@ select {
 /* ===== TAG BUTTON TOOLTIP ===== */
 .tag-tooltip {
   position: fixed;
+  right: 14px;
+  bottom: 14px;
+
   z-index: 9999;
 
-  max-width: 220px;
+  max-width: 260px;
+
   padding: 6px 10px;
 
   font-size: 0.75rem;
-  color: #ddd;
+  color: #fff;
 
-  background: rgba(20, 20, 20, 0.95);
-  border: 1px solid #555;
-  border-left: 3px solid var(--teal);
+  background: rgba(0, 162, 255, 0.85);
+  border: 1px solid #00a2ff;
+  border-left: 3px solid #00a2ff;
 
-  border-radius: 4px;
-
+  transform: skewX(-20deg) translateY(6px);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(4px);
 
   transition: opacity 0.12s ease, transform 0.12s ease;
 
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
 }
 
+/* unskew text */
+.tag-tooltip::before {
+  content: attr(data-text);
+}
+
+/* OR better: wrap content */
+.tag-tooltip span {
+  display: inline-block;
+  transform: skewX(20deg);
+}
+
+/* visible state */
 .tag-tooltip.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: skewX(-20deg) translateY(0);
 }
 
 /* Protecting tag button corners */
