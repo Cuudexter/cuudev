@@ -113,14 +113,19 @@ function getMemberOnlyIdsFromTags(tagMap) {
 
 async function fetchVideosByIds(ids) {
   const results = [];
+  const fetchPromises = [];
 
   for (let i = 0; i < ids.length; i += 50) {
     const chunk = ids.slice(i, i + 50).join(",");
     const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${chunk}&key=${API_KEY}`;
-    const data = await ytFetch(url);
-    results.push(...(data.items || []));
-    await new Promise(r => setTimeout(r, 150));
+
+    fetchPromises.push(
+      ytFetch(url).then(data => data.items || [])
+    );
   }
+
+  const fetchedChunks = await Promise.all(fetchPromises);
+  results.push(...fetchedChunks.flat());
 
   return results.map(v => ({
     id: v.id,
@@ -328,14 +333,19 @@ async function getVideosFromPlaylist(playlistId) {
   const videoIds = videos.map(v => v.snippet.resourceId.videoId);
   const details = [];
 
+  const detailPromises = [];
+
   for (let i = 0; i < videoIds.length; i += 50) {
     const chunk = videoIds.slice(i, i + 50).join(",");
     const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,liveStreamingDetails,snippet&id=${chunk}&key=${API_KEY}`;
-    const detailsRes = await fetch(detailsUrl);
-    const detailsData = await detailsRes.json();
-    details.push(...(detailsData.items || []));
-    await new Promise(r => setTimeout(r, 150));
+
+    detailPromises.push(
+      ytFetch(detailsUrl).then(data => data.items || [])
+    );
   }
+
+  const detailResults = await Promise.all(detailPromises);
+  details.push(...detailResults.flat());
 
   return details
     .filter(v => v.snippet.liveBroadcastContent === "none" && v.liveStreamingDetails)
@@ -435,6 +445,17 @@ function extractVideoId(value) {
 
 // ==== TAG BUTTONS ====
 
+let TAG_DESCRIPTIONS = {};
+
+const tagDescScript = document.getElementById("tag-desc");
+if (tagDescScript) {
+  try {
+    TAG_DESCRIPTIONS = JSON.parse(tagDescScript.textContent);
+  } catch (e) {
+    console.warn("Failed to parse tag descriptions");
+  }
+}
+
 let tagStates = {}; // three-state per tag
 
 function createTagButtons(tagNames) {
@@ -453,6 +474,9 @@ tagNames.forEach(tag => {
   const btn = document.createElement("button");
   btn.className = "tag-btn";
   btn.innerHTML = `<span>${tag}</span>`;
+  if (TAG_DESCRIPTIONS[tag]) {
+  btn.dataset.desc = TAG_DESCRIPTIONS[tag];
+  }
   btn.addEventListener("click", () => cycleTagState(tag, btn));
   updateTagButtonStyle(btn, "none");
 
@@ -477,6 +501,101 @@ function updateTagButtonStyle(btn, state) {
   if (state === "include") btn.classList.add("include");
   if (state === "exclude") btn.classList.add("exclude");
 }
+
+// ==== STREAM TAG HOVER INFO ====
+
+document.addEventListener("click", (e) => {
+  const toggle = e.target.closest(".tags-toggle");
+  const clickedCard = e.target.closest(".video-card");
+
+  const sheet = document.getElementById("mobileTagSheet");
+  const list = document.getElementById("mobileTagList");
+
+  /* ===== MOBILE SHEET CLOSE ===== */
+  if (
+    e.target.closest(".mobile-tag-backdrop") ||
+    e.target.closest("#closeMobileTags")
+  ) {
+    if (sheet) {
+      sheet.classList.remove("open");
+    }
+    e.stopPropagation();
+    return;
+  }
+
+  /* ===== Close other desktop cards ===== */
+  document.querySelectorAll(".video-card.tags-open").forEach(card => {
+    if (card !== clickedCard) {
+      card.classList.remove("tags-open");
+    }
+  });
+
+  /* ===== TAG BUTTON CLICK ===== */
+  if (toggle) {
+    const isMobile = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+      if (isMobile) {
+        let tags = [];
+        let title = "";
+
+        try {
+          tags = JSON.parse(decodeURIComponent(toggle.dataset.tags || "[]"));
+        } catch {}
+
+        try {
+          title = decodeURIComponent(toggle.dataset.title || "");
+        } catch {}
+
+        if (list) {
+          list.innerHTML = tags.map(tag =>
+            `<span class="overlay-tag"><span>${escapeHtml(tag)}</span></span>`
+          ).join("");
+        }
+
+      const titleEl = document.getElementById("mobileTagTitle");
+
+      titleEl.textContent = `Tags for ${title}`;
+
+      if (sheet) {
+        sheet.classList.add("open");
+      }
+
+      e.stopPropagation();
+      return;
+    }
+  }
+
+  /* ===== Click outside closes everything ===== */
+  if (!clickedCard) {
+    document.querySelectorAll(".video-card.tags-open").forEach(card => {
+      card.classList.remove("tags-open");
+    });
+
+    if (sheet && !e.target.closest(".mobile-tag-panel")) {
+      sheet.classList.remove("open");
+    }
+  }
+});
+
+window.addEventListener("resize", () => {
+  const grid = document.getElementById("video-grid");
+  if (!grid) return;
+
+  requestAnimationFrame(() => {
+    const cards = [...grid.querySelectorAll(".video-card")];
+
+    cards.forEach(card => {
+      card.classList.remove("tag-flip");
+
+      const rect = card.getBoundingClientRect();
+      const spaceRight = window.innerWidth - rect.right;
+
+      if (spaceRight < 140) {
+        card.classList.add("tag-flip");
+      }
+    });
+  });
+});
 
 // ==== SLIDER LOGIC ====
 
@@ -579,8 +698,22 @@ function displayStreams(streams) {
 
     const displayedDuration = s.durationMinutes || 0;
 
+    const activeTags = getStreamTagList(s).sort((a, b) => a.localeCompare(b));;
+
+    const tagOverlayHtml = activeTags.length
+      ? `
+        <div class="overlay-tag-container">
+          ${activeTags.map(tag =>
+            `<span class="overlay-tag"><span>${escapeHtml(tag)}</span></span>`
+          ).join("")}
+        </div>
+      `
+      : "";
+
     return `
       <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
+        ${tagOverlayHtml}
+
         <a href="${s.platform === "bilibili"
               ? `https://www.bilibili.com/video/${s.id}/`
               : `https://youtu.be/${s.id}`}"
@@ -594,18 +727,47 @@ function displayStreams(streams) {
             referrerpolicy="no-referrer"
           />
         </a>
+
         <div class="video-info">
           <h3>${escapeHtml(s.title)}</h3>
+
           <div class="video-meta">
             <p class="video-date">${s.formattedDate}</p>
             ${statusLabel}
             <p class="video-duration">${formatMinutesToHM(displayedDuration)}</p>
           </div>
+
+          ${activeTags.length
+            ? `<button 
+                  class="tags-toggle" 
+                  type="button"
+                  data-tags="${encodeURIComponent(JSON.stringify(activeTags))}"
+                  data-title="${encodeURIComponent(s.title)}"
+              >
+                  <span>Stream Tags</span>
+              </button>`
+            : ""}
         </div>
       </div>
     `;
   }).join("");
 
+  // Flip tag stacks inward for cards near right edge
+  requestAnimationFrame(() => {
+    const cards = [...grid.querySelectorAll(".video-card")];
+
+    cards.forEach(card => {
+      card.classList.remove("tag-flip");
+
+      const rect = card.getBoundingClientRect();
+      const spaceRight = window.innerWidth - rect.right;
+
+      // If near viewport edge, move tags to left side
+      if (spaceRight < 140) {
+        card.classList.add("tag-flip");
+      }
+    });
+  });
 }
 
 function streamHasTagValue(stream, tagName) {
@@ -616,6 +778,15 @@ function streamHasTagValue(stream, tagName) {
   if (t === "") return false;
   if (!Number.isNaN(Number(t))) return Number(t) > 0;
   return true;
+}
+
+function getStreamTagList(stream) {
+  if (!stream.tags) return [];
+
+  return Object.keys(stream.tags).filter(tag =>
+    !["stream_link", "stream_title", "zatsu_start", "zatsuStartMinutes"].includes(tag) &&
+    streamHasTagValue(stream, tag)
+  );
 }
 
 function durationForStreamByMode(s) {
@@ -859,6 +1030,43 @@ if (!window.IS_COLLAB_PAGE && !window.location.pathname.includes("suggest")) {
 // Suggest Tag button
 document.getElementById("suggestTagBtn")?.addEventListener("click", () => {
   window.location.href = "suggest.html";
+});
+
+// === TAG TOOLTIP ===
+const tooltip = document.createElement("div");
+tooltip.className = "tag-tooltip";
+document.body.appendChild(tooltip);
+
+let tooltipTimeout;
+
+document.addEventListener("mouseover", (e) => {
+  const btn = e.target.closest(".tag-btn");
+  if (!btn || !btn.dataset.desc) return;
+
+  tooltip.innerHTML = `<span>${btn.dataset.desc}</span>`;
+  tooltip.classList.add("visible");
+});
+
+document.addEventListener("mouseout", (e) => {
+  if (e.target.closest(".tag-btn")) {
+    tooltip.classList.remove("visible");
+  }
+});
+
+/* Mobile: long press */
+document.addEventListener("touchstart", (e) => {
+  const btn = e.target.closest(".tag-btn");
+  if (!btn || !btn.dataset.desc) return;
+
+  tooltipTimeout = setTimeout(() => {
+    tooltip.innerHTML = `<span>${btn.dataset.desc}</span>`;
+    tooltip.classList.add("visible");
+  }, 500);
+});
+
+document.addEventListener("touchend", () => {
+  clearTimeout(tooltipTimeout);
+  tooltip.classList.remove("visible");
 });
 
 // === TAG COLLAPSE TOGGLE (3-STAGE) ===

@@ -142,12 +142,18 @@ select {
   flex-direction: column;
   background: var(--card);
   border-radius: 0 0 12px 12px;
-  overflow: hidden;
+  overflow: visible;
   transition: transform 160ms ease;
+  position: relative;
 }
 
 .video-card:hover {
   transform: scale(1.02);
+}
+
+.video-card:hover,
+.video-card.tags-open {
+  z-index: 100;
 }
 
 /* Thumbnail */
@@ -156,6 +162,8 @@ select {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 /* Video info below thumbnail */
@@ -167,6 +175,7 @@ select {
   padding: 0.8rem 1rem;
   min-height: 90px; /* ensures room for title + meta */
   background: var(--card);
+  border-radius: 0 0 12px 12px;
 }
 
 .video-info h3 {
@@ -177,6 +186,218 @@ select {
   flex-shrink: 0;
   line-height: 1.3;
 }
+
+/* Hidden tag info */
+
+/* ===== TAG OVERLAY (DESKTOP) ===== */
+.overlay-tag-container {
+  position: absolute;
+  top: 8px;
+  left: calc(100% - 14px);
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transform: translateX(-10px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+
+  z-index: 30;
+  align-items: flex-start;
+}
+
+.video-card:hover .overlay-tag-container {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+/* flip right-side cards */
+.video-card.tag-flip .overlay-tag-container {
+  left: auto;
+  right: calc(100% - 14px);
+  transform: translateX(-10px);
+  align-items: flex-end;
+}
+
+/* ===== TAG STYLE  ===== */
+.overlay-tag {
+  display: inline-flex;
+  align-items: center;
+
+  max-width: 220px;
+  min-width: 0;
+
+  padding: 0 12px;
+  min-height: 28px;
+
+  margin-top: -1px;
+
+  background: rgba(34, 34, 34, 0.97);
+  border: 1px solid #555;
+  border-left: 3px solid var(--teal);
+
+  font-size: 0.78rem;
+  color: #ccc;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transform: skewX(-20deg);
+
+  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
+.overlay-tag > span {
+  transform: skewX(20deg);
+  display: inline-block;
+}
+
+.tags-toggle {
+  display: none !important;
+}
+
+/* ===== MOBILE ONLY (CLEAN + SINGLE SOURCE OF TRUTH) ===== */
+@media (hover: none), (pointer: coarse) {
+
+  .overlay-tag-container {
+    display: none !important;
+  }
+
+  .tags-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2px 8px;
+    min-height: 22px;
+
+    font-size: 0.7rem;
+    font-weight: 600;
+
+    background: rgba(34, 34, 34, 0.92);
+    border: 1px solid #555;
+    border-left: 3px solid var(--teal);
+
+    color: #ccc;
+
+    transform: skewX(-20deg);
+    cursor: pointer;
+
+    box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+
+    flex: 0 0 auto;
+  }
+
+  .tags-toggle span {
+    display: inline-block;
+    transform: skewX(20deg);
+  }
+
+  .tags-toggle:active {
+    background: rgba(34, 34, 34, 1);
+    transform: skewX(-20deg) scale(0.97);
+  }
+}
+
+/* ===== MOBILE TAG SHEET ===== */
+.mobile-tag-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.mobile-tag-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mobile-tag-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: #1c1c1c;
+  border-top: 1px solid #444;
+
+  border-radius: 16px 16px 0 0;
+
+  padding: 1rem;
+
+  transform: translateY(100%);
+  transition: transform 0.22s ease;
+
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* OPEN STATE */
+.mobile-tag-sheet.open {
+  pointer-events: auto;
+}
+
+.mobile-tag-sheet.open .mobile-tag-backdrop {
+  opacity: 1;
+}
+
+.mobile-tag-sheet.open .mobile-tag-panel {
+  transform: translateY(0);
+}
+
+/* Header */
+.mobile-tag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1rem;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+#mobileTagTitle {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Close button */
+#closeMobileTags {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+/* Tag layout inside sheet */
+.mobile-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* Let tags expand properly on mobile */
+.mobile-tag-list .overlay-tag {
+  max-width: 100%;
+  white-space: normal;
+}
+
 
 /* Tag label for untagged / supercut / member videos */
 .untagged-label {
@@ -318,6 +539,51 @@ select {
   border-color: var(--pink);
 }
 
+/* ===== TAG BUTTON TOOLTIP ===== */
+.tag-tooltip {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+
+  z-index: 9999;
+
+  padding: 6px 10px;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1c1c1c;;
+
+  background: #00a2ff;
+
+  transform: skewX(-20deg) translateY(6px);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.12s ease, transform 0.12s ease;
+
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.tag-tooltip span {
+  display: inline-block;
+  transform: skewX(20deg);
+}
+
+.tag-tooltip.visible {
+  opacity: 1;
+  transform: skewX(-20deg) translateY(0);
+}
+
+.tag-tooltip {
+  white-space: nowrap;
+  width: max-content;
+  max-width: 340px;
+}
+
+.tag-tooltip span {
+  white-space: nowrap;
+  width: max-content;
+}
 
 /* Protecting tag button corners */
 .tag-section {
@@ -381,6 +647,7 @@ select {
 .thumb-link {
   display: block;
   overflow: hidden;
+  border-radius: 0;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -401,21 +668,64 @@ select {
 }
 
 /* ===== VIDEO META (date / duration / untagged) ===== */
+
 .video-meta {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   font-size: 0.85rem;
   color: var(--muted);
-  gap: 8px;
+
   padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255,255,255,0.06);
   margin-top: auto;
 }
 
+/* Date locked left */
+.video-date {
+  justify-self: start;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Duration locked right */
+.video-duration {
+  justify-self: end;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Middle slot */
+.meta-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+/* Prevent giant button stretching */
+.meta-center .tags-toggle {
+  flex: 0 0 auto;
+}
+
+/* Label can shrink gracefully */
+.meta-center .untagged-label,
+.meta-center .vodplus-label,
+.meta-center .member-label,
+.meta-center .bili-label {
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+/* Prevent accidental paragraph spacing */
 .video-meta p {
   margin: 0;
-  white-space: nowrap;
 }
 
 /* ===== DURATION SLIDER SECTION ===== */
@@ -870,8 +1180,3 @@ body:not(.index-page) .header-actions .nav-slant-btn:focus {
   border-radius: 2px;
   transition: background 0.2s ease;
 }
-
-
-
-
-
