@@ -369,11 +369,7 @@ select {
 
 #mobileTagTitle {
   flex: 1;
-<<<<<<< HEAD
-  min-width: 0;              /* critical */
-=======
   min-width: 0;
->>>>>>> tagging
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

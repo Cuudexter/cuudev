@@ -9,7 +9,7 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
-## [1.4.1] - 2026-04-18
+## [1.4.1] - 2026-05-29
 
 ### Added
 - Tags for Schrödinger's Call & Zanny zatsu
