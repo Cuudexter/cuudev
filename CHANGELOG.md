@@ -9,7 +9,12 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
-## [1.4.2] - 2026-06-08
+## [1.4.4] - 2026-06-09
+
+### Added
+- Tags for Road to Empress 2 and Zelda react 
+
+## [1.4.3] - 2026-06-08
 
 ### Added
 - Tags for Ash Paddle collab, member writing & Schrödinger's Call  + Pragmata part 2s
