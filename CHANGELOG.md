@@ -12,7 +12,8 @@ All notable changes to Cuudex will be shown here.
 ## [1.4.4] - 2026-06-09
 
 ### Added
-- Tags for Road to Empress 2 and Zelda react 
+- Tags for Road to Empress 2 and Zelda react
+- Monster Prom collab with Ash & Zanny
 
 ## [1.4.3] - 2026-06-08
 
