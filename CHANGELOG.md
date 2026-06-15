@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.5] - 2026-06-15
+
+### Added
+- Tags for MetaLost, Schrödinger's Call 3 & chatting streams
+
 ## [1.4.4] - 2026-06-11
 
 ### Added
