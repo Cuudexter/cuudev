@@ -9,6 +9,12 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.7] - 2026-06-22
+
+### Added
+- Tags for Empress 2, Bloody Mary watchalong, weekly member writing & Oshiete 26
+- Janken Pomme collab
+
 ## [1.4.6] - 2026-06-18
 
 ### Added
