@@ -9,6 +9,12 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.10] - 2026-07-06
+
+### Added
+- Tags for Schrödinger's Call, Creature Kitchen, Guessrs and member writing
+- New tag <i>Comfy/Cozy</i>
+
 ## [1.4.9] - 2026-06-29
 
 ### Added
