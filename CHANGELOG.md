@@ -9,6 +9,12 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.11] - 2026-07-17
+
+### Added
+- Tags for Oshiete 29, Voices of Crime, Mecca collab & pre-break ZatsuGuessr (playing vod catchup!) 
+- Ash 3D visit
+
 ## [1.4.10] - 2026-07-06
 
 ### Added
