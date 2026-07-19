@@ -9,6 +9,13 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.12] - 2026-07-19
+
+### Added
+- Tags for And Roger
+- New tag <i>Puzzle</i>
+- "Your Symphony" collab with AmiLLy + Afterparty
+
 ## [1.4.11] - 2026-07-17
 
 ### Added
