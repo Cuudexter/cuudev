@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.13] - 2026-07-21
+
+### Added
+- Tags for My Little Puppy, member writing & Oshiete 30
+
 ## [1.4.12] - 2026-07-19
 
 ### Added
