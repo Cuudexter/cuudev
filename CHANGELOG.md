@@ -15,6 +15,9 @@ All notable changes to Cuudex will be shown here.
 - Tags for GeoGuessr, Stanley Parable, Link Click watchalong & member writing
 - Don't Scream with Ash and Roy's café collabs
 
+### Changed
+- Removed the <i>Cinematic</i> tag for Schrödinger's Call, it felt slightly misplaced as the game is not very movie-esque, though the art design still amazing.
+
 ## [1.4.14] - 2026-07-29
 
 ### Added
