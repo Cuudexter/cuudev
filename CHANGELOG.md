@@ -9,6 +9,12 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.15] - 2026-08-02
+
+### Added
+- Tags for GeoGuessr, Stanley Parable, Link Click watchalong & member writing
+- Don't Scream with Ash and Roy's café collabs
+
 ## [1.4.14] - 2026-07-29
 
 ### Added
