@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.16] - 2026-08-10
+
+### Added
+- Tags for Oshietes 32, Stanley Parable, Dave the Diver, Onsen ASMR & member writing
+
 ## [1.4.15] - 2026-08-02
 
 ### Added
