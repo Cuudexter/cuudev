@@ -9,6 +9,14 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.18] - 2026-08-22
+
+### Added
+- Tags for final Sister Other Paranoia, 3rd Dave the Diver & 2nd Expedition 33
+
+### Changed
+- Added <i>Oneshot</i> to Bilibili Link Click watchalong
+
 ## [1.4.17] - 2026-08-17
 
 ### Added
