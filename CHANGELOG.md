@@ -9,14 +9,10 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
-## [1.4.19] - 2026-09-01
+## [1.4.18] - 2026-09-01
 
 ### Added
 - Tags for zatsuchill in the Park, Dave the privated, 3rd E33, Guessr stream & 1st anniversary
-
-## [1.4.18] - 2026-08-22
-
-### Added
 - Tags for final Sister Other Paranoia, 3rd Dave the Diver & 2nd Expedition 33
 
 ### Changed
