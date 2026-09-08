@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.19] - 2026-09-08
+
+### Added
+- Tags for Mario Kart, King of the Castle, Fall Guys, Gartic Phone, FellyCu member, Zelda 40 watchalong
+
 ## [1.4.18] - 2026-09-01
 
 ### Added
