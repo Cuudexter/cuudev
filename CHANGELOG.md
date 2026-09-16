@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.20] - 2026-09-17
+
+### Added
+- Tags for 3rd Expedition 33, Meccha Chameleon with pupals, member voice pack writing & Oshiete 34
+
 ## [1.4.19] - 2026-09-08
 
 ### Added
