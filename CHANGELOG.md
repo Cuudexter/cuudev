@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.21] - 2026-09-22
+
+### Added
+- Tags for the first 2 Fire Emblem: Fortune's Weave streams, 5th E33 and Silent Hill: Townfall
+
 ## [1.4.20] - 2026-09-17
 
 ### Added
