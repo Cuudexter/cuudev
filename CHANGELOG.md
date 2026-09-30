@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.22] - 2026-09-30
+
+### Added
+- Tags for 6th E33, Pupal Urban Legends, member writing and 3rd Fire Emblem: Fortune's Weave
+
 ## [1.4.21] - 2026-09-22
 
 ### Added
