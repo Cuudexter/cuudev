@@ -9,6 +9,12 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.23] - 2026-10-05
+
+### Added
+- Tags for 7th E33, final Silent Hill: Townfall, member writing & Oshiete 35
+- <i>Existential</i> tag to all E33 streams
+
 ## [1.4.22] - 2026-09-30
 
 ### Added
