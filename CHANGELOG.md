@@ -12,7 +12,7 @@ All notable changes to Cuudex will be shown here.
 ## [1.4.24] - 2026-10-12
 
 ### Added
-- Tags for 8th & final E33, NU: Carnival & DMMD collab sponsorship, member writing & Oshiete 36
+- Tags for 8th & final E33, 4th Fire Emblem, NU: Carnival & DMMD collab sponsorship, member writing & Oshiete 36
 
 ## [1.4.23] - 2026-10-05
 
