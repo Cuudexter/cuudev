@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.25] - 2026-10-19
+
+### Added
+- Tags for 5th-8th Fire Emblem streams & Oshiete 37
+
 ## [1.4.24] - 2026-10-12
 
 ### Added
