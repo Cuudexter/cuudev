@@ -9,6 +9,11 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.27] - 2026-11-04
+
+### Added
+- Tags for Blood Typers collab with Ash, Scary Stories with Pupals & the rest of Cai's arc: 13th-16th Fire Emblem streams
+
 ## [1.4.26] - 2026-10-26
 
 ### Added
