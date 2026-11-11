@@ -9,6 +9,14 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
+## [1.4.28] - 2026-11-11
+
+### Added
+- Tags for the first 4 Zelda Ocarina of Time remake streams & 35th (33rd?) birthday!
+
+### Fixed
+- API keys not rotating
+
 ## [1.4.27] - 2026-11-04
 
 ### Added

@@ -46,52 +46,93 @@ let API_KEY_INDEX = 0;
 let API_KEY = API_KEYS[API_KEY_INDEX]; // global active key
 
 // Try the current key. If it fails, rotate and try again.
-async function ytFetch(url) {
+
+// ==== IMPROVED YOUTUBE API FETCH ====
+
+async function ytFetch(input) {
+
   for (let i = 0; i < API_KEYS.length; i++) {
 
-    API_KEY = API_KEYS[API_KEY_INDEX];
+    const key = API_KEYS[API_KEY_INDEX];
 
-    // Convert URL or string to real request URL
-    let tryUrl;
-    if (typeof url === "string") {
-      tryUrl = url.includes("key=")
-        ? url.replace(/key=[^&]+/, "key=" + API_KEY)
-        : url + (url.includes("?") ? "&" : "?") + "key=" + API_KEY;
-    } else if (url instanceof URL) {
-      url.searchParams.set("key", API_KEY);
-      tryUrl = url.toString();
-    } else {
-      throw new Error("Invalid URL passed to ytFetch");
-    }
+    const requestUrl = new URL(
+      input instanceof URL ? input.toString() : input
+    );
+
+    requestUrl.searchParams.set("key", key);
 
     try {
-      const res = await fetch(tryUrl);
-      const text = await res.text();
+      const res = await fetch(requestUrl);
 
-      // Try JSON first. If it fails → return plain text
+      const raw = await res.text();
+
+      let data;
       try {
-        const json = JSON.parse(text);
-
-        // Check quota error inside JSON
-        if (json.error?.errors?.[0]?.reason === "quotaExceeded" ||
-            json.error?.errors?.[0]?.reason === "dailyLimitExceeded") {
-          throw new Error("quota");
-        }
-
-        return json;       // Return parsed JSON
+        data = JSON.parse(raw);
       } catch {
-        return text;       // CSV / plain text
+        data = raw;
       }
 
-    } catch (err) {
-      console.warn(`API key ${API_KEY} failed (${err.message}). Rotating…`);
+      // Successful response
+      if (res.ok) {
+        API_KEY = key;
+        return data;
+      }
 
-      API_KEY_INDEX = (API_KEY_INDEX + 1) % API_KEYS.length;
-      API_KEY = API_KEYS[API_KEY_INDEX];
+      // Extract Google's actual error reason
+      const reason = data?.error?.errors?.[0]?.reason;
+
+      console.error("YouTube API error:", {
+        status: res.status,
+        reason,
+        message: data?.error?.message
+      });
+
+      // All keys in the same project share quota.
+      if (
+        reason === "quotaExceeded" ||
+        reason === "dailyLimitExceeded"
+      ) {
+        throw new Error(
+          "YOUTUBE_QUOTA_EXCEEDED: Project quota exhausted."
+        );
+      }
+
+      // Only rotate for key-specific errors.
+      if (
+        reason === "keyInvalid" ||
+        reason === "ipRefererBlocked"
+      ) {
+        console.warn("Key rejected. Trying next key...");
+
+        API_KEY_INDEX =
+          (API_KEY_INDEX + 1) % API_KEYS.length;
+
+        continue;
+      }
+
+      throw new Error(
+        `YouTube API error (${res.status}): ${
+          data?.error?.message || raw
+        }`
+      );
+
+    } catch (err) {
+
+      if (err.message.startsWith("YOUTUBE_QUOTA_EXCEEDED")) {
+        throw err;
+      }
+
+      if (err.message.startsWith("YouTube API error")) {
+        throw err;
+      }
+
+      // Network errors aren't necessarily key errors.
+      throw err;
     }
   }
 
-  throw new Error("All API keys exhausted");
+  throw new Error("All API keys failed.");
 }
 
 
