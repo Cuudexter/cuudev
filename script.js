@@ -88,14 +88,19 @@ async function ytFetch(input) {
         message: data?.error?.message
       });
 
-      // All keys in the same project share quota.
+      // Quota exhausted: try the next independent project.
       if (
         reason === "quotaExceeded" ||
         reason === "dailyLimitExceeded"
       ) {
-        throw new Error(
-          "YOUTUBE_QUOTA_EXCEEDED: Project quota exhausted."
+        console.warn(
+          `API key ${API_KEY_INDEX + 1} exhausted. Trying next project...`
         );
+
+        API_KEY_INDEX =
+          (API_KEY_INDEX + 1) % API_KEYS.length;
+
+        continue;
       }
 
       // Only rotate for key-specific errors.
