@@ -729,6 +729,7 @@ function displayStreams(streams) {
     const isSupercut = streamHasTagValue(s, "Supercut");
     const isMember = streamHasTagValue(s, "Member");
     const isBili = streamHasTagValue(s, "Bilibili");
+    const isSponsored = streamHasTagValue(s, "Official Collab");
 
     let statusLabel = "";
 
@@ -738,6 +739,8 @@ function displayStreams(streams) {
       statusLabel = `<span class="member-label">Member</span>`;
     } else if (isBili) {
       statusLabel = `<span class="bili-label">Bilibili</span>`;
+    } else if (isSponsored) {
+      statusLabel = `<span class="sponsored-label">Official Collab</span>`;
     } else if (!isTagged) {
       statusLabel = `<span class="untagged-label">Untagged</span>`;
     }
@@ -757,7 +760,7 @@ function displayStreams(streams) {
       : "";
 
     return `
-      <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""}">
+      <div class="video-card ${isSupercut ? "vod-plus" : ""} ${isMember ? "member-stream" : ""} ${isSponsored ? "sponsored" : ""}">
         ${tagOverlayHtml}
 
         <a href="${s.platform === "bilibili"

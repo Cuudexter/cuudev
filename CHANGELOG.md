@@ -12,6 +12,12 @@ All notable changes to Cuudex will be shown here.
 ## [1.4.28] - 2026-11-11
 
 ### Added
+- Tags for the 5th Zelda 2026 stream
+- New tag <i>Official Collab</i> for sponsored streams and official game collaborations
+
+## [1.4.28] - 2026-11-11
+
+### Added
 - Tags for the first 4 Zelda Ocarina of Time remake streams & 35th (33rd?) birthday!
 
 ### Fixed

@@ -399,7 +399,7 @@ select {
 }
 
 
-/* Tag label for untagged / supercut / member videos */
+/* Tag label for untagged / supercut / member / sponsored videos */
 .untagged-label {
   background: rgba(200, 70, 70, 0.85);
   color: #fff;
@@ -449,6 +449,22 @@ select {
 .bili-label {
   background: linear-gradient(135deg, #34D0F4, #2189a0);
   color: #0f2416;
+  font-size: 0.75rem;
+  font-weight: 750;
+  padding: 3px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.25),
+    0 1px 3px rgba(0,0,0,0.5);
+}
+
+.sponsored-label {
+  background: linear-gradient(135deg, #9B6BD6, #60358F);
+  color: #180F24;
   font-size: 0.75rem;
   font-weight: 750;
   padding: 3px 7px;
@@ -516,6 +532,35 @@ select {
   box-shadow:
     inset 0 0 0 2px rgba(60, 160, 90, 0.85),
     0 0 26px rgba(60, 160, 90, 0.65);
+}
+
+/* === Official Collab Streams === */
+.video-card.sponsored {
+  background: linear-gradient(
+    180deg,
+    rgba(96, 53, 143, 0.26),
+    rgba(28, 28, 28, 1)
+  );
+
+  box-shadow:
+    inset 0 0 0 2px rgba(139, 92, 190, 0.7),
+    0 0 20px rgba(112, 65, 165, 0.4);
+
+  position: relative;
+}
+
+.video-card.sponsored .video-info {
+  background: linear-gradient(
+    180deg,
+    rgba(96, 53, 143, 0.2),
+    rgba(28, 28, 28, 1)
+  );
+}
+
+.video-card.sponsored:hover {
+  box-shadow:
+    inset 0 0 0 2px rgba(180, 135, 230, 0.9),
+    0 0 28px rgba(139, 92, 190, 0.7);
 }
 
 /* ===== TAG BUTTON FILTERS ===== */
