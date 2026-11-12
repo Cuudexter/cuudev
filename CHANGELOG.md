@@ -9,7 +9,7 @@ All notable changes to Cuudex will be shown here.
 - Add cookie info? I don't use any. Cake, on the other hand...
 - Fix Suggest page text in general
 
-## [1.4.28] - 2026-11-11
+## [1.4.29] - 2026-11-12
 
 ### Added
 - Tags for the 5th Zelda 2026 stream
